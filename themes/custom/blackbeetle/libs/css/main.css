@@ -86,7 +86,7 @@ body {
 	position: relative;
 	width: 640px;
 	padding-top: 5px;
-	border-top: 1px solid black;
+	border-top: 1px solid #717073;
 	line-height: 14px;
 	font-size: 12px;
 }
