@@ -12,9 +12,10 @@ body {
 .col {
 	float: left;
 }
-.col_01 {
-	width: 240px;
-}
+.col_01 { width: 240px; }
+.col_02 { width: 480px; }
+.col_03 { width: 720px; }
+.col_04 { width: 960px; }
 
 /* Navigation */
 .nav {}
@@ -108,6 +109,10 @@ body {
 }
 #body .col .link:hover .title h2 {
 	color: #d2232a;
+}
+
+#body .content {
+	text-align: justify;
 }
 
 /* Footer */
