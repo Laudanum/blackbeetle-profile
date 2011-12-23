@@ -7,9 +7,13 @@ body {
 :focus {
 	outline: none !important;
 }
+
+/* Columns */
+.col {
+	float: left;
+}
 .col_01 {
 	width: 240px;
-	float: left;
 }
 
 /* Navigation */
@@ -48,26 +52,29 @@ body {
 	border-bottom: 1px solid #717073;
 	margin-bottom: 10px;
 }
-#title {
+#header .title {
+	padding: 30px 0 0 9px;
 	border-left: 1px solid #e6e7e8;
-	padding: 30px 0 0 9px;	
 }
-#title h1 {
+
+.title {}
+.title h1 {
 	position: absolute;
 	text-indent: -9999px;
 }
-#title .num {
+.title .num {
 	margin-bottom: 0;
 	line-height: 40px;
 	font-weight: bold;
 	font-size: 34px;
 	color: #e6e7e8;
 }
-#title h2 {
+.title h2 {
 	line-height: 19px;
 	margin: 0;
 	font-weight: normal;
 	font-size: 16px;
+	color: #717073;
 }
 #header .nav {
 	position: absolute;
@@ -76,7 +83,33 @@ body {
 }
 
 /* Body */
-#body {}
+#body {
+	margin-bottom: 10px;
+}
+#body .col {}
+#body .col .img {
+}
+#body .col .img img {
+	display: block;
+	margin-bottom: 0;
+}
+#body .col .title {
+	padding-left: 9px;
+	border-right: 1px solid #e6e7e8
+}
+#body .col:first-child .title {
+	border-left: 1px solid #e6e7e8
+}
+#body .col a {
+	text-decoration: none;
+}
+#body .col .link:hover .title .num {
+	color: #d2232a;
+}
+#body .col .link:hover .title h2 {
+	color: #d2232a;
+}
+
 /* Footer */
 #footer {
 	position: relative;
