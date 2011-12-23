@@ -7,6 +7,10 @@ body {
 :focus {
 	outline: none !important;
 }
+.col_01 {
+	width: 240px;
+	float: left;
+}
 
 /* Navigation */
 .nav {}
@@ -39,8 +43,10 @@ body {
 /* Header */
 #header {
 	position: relative;
-	padding-bottom: 10px;
+	min-height: 60px;
+	padding: 10px 0;
 	border-bottom: 1px solid #717073;
+	margin-bottom: 10px;
 }
 #title {
 	border-left: 1px solid #e6e7e8;
@@ -72,8 +78,28 @@ body {
 /* Body */
 #body {}
 /* Footer */
-#footer {}
-#footer .logo {}
+#footer {
+	position: relative;
+	padding-top: 32px;
+}
+#footer .body {
+	position: relative;
+	width: 640px;
+	padding-top: 5px;
+	border-top: 1px solid black;
+	line-height: 14px;
+	font-size: 12px;
+}
+#footer .body .nav {
+	position: absolute;
+	top: 5px;
+	right: 0;
+}
+#footer .logo {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
 #footer .logo h1 {}
 #footer .logo h1 a {
 	background: url("../images/logo.png") no-repeat 0 0 scroll transparent;
