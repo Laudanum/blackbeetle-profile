@@ -91,6 +91,7 @@ a:hover {
 
 /* Body */
 #body {
+	position: relative;
 	margin-bottom: 10px;
 }
 #body .col .img img {
@@ -181,4 +182,28 @@ a:hover {
 	left: 0;
 	height: 10px;
 	width: 56px;
+}
+
+.arrows {}
+.arrows .arrow {
+	position: absolute;
+	top: 200px;
+}
+.arrows .arrow a {
+	background: url("../images/arrows.png") no-repeat 0 0 scroll transparent;
+	display: block;
+	width: 35px;
+	height: 28px;
+}
+.arrows .arrow.arrow-left {
+	left: -45px;
+}
+.arrows .arrow.arrow-left a {
+	background-position: 0 0;
+}
+.arrows .arrow.arrow-right {
+	right: -45px;
+}
+.arrows .arrow.arrow-right a {
+	background-position: 0 -28px;
 }
