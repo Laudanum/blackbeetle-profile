@@ -124,6 +124,7 @@ a:hover {
 	margin-bottom: 0;
 	line-height: 14px;
 	font-weight: bold;
+	font-style: italic;
 	font-size: 12px;
 }
 
@@ -149,13 +150,13 @@ a:hover {
 	top: 5px;
 	right: 0;
 }
-#footer .logo {
+#site-name {
 	position: absolute;
 	top: 0;
 	right: 0;
 }
-#footer .logo h1 {}
-#footer .logo h1 a {
+#site-name h1 {}
+#site-name h1 a {
 	background: url("../images/logo.png") no-repeat 0 0 scroll transparent;
 	display: block;
 	width: 310px;
