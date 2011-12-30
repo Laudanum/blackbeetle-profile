@@ -94,9 +94,22 @@ a:hover {
 	position: relative;
 	margin-bottom: 10px;
 }
+#body .col .img {
+	position: relative;
+}
 #body .col .img img {
 	display: block;
 	margin-bottom: 0;
+}
+#body .col .img .text {
+	background: rgba(255, 255, 255, 0.5);
+	position: absolute;
+	top: 50%;
+	height: 50%;
+	width: 100%;
+}
+#body .col .img .text .body {
+	padding: 10px;
 }
 #body .col .link .title {
 	padding-left: 9px;
