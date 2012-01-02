@@ -138,12 +138,15 @@ a:hover {
 	margin-bottom: 0;
 	line-height: 14px;
 	font-weight: bold;
-	font-style: italic;
 	font-size: 12px;
 }
 
 #body .content {
 	text-align: justify;
+}
+
+byline {
+	font-style: italic;
 }
 
 /* Footer */
