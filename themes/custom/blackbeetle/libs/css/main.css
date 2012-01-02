@@ -103,11 +103,16 @@ a:hover {
 }
 #body .col .img .text {
 	background: rgba(255, 255, 255, 0.5);
+	display: none;
 	position: absolute;
 	top: 50%;
 	height: 50%;
 	width: 100%;
 	font-family: sans-serif;
+	color: #717073;
+}
+#body .col .img:hover .text {
+	display: block;
 }
 #body .col .img .text .body {
 	padding: 10px;
