@@ -1,0 +1,253 @@
+/* Main */
+body {
+	background: white;
+	font-size: 12px;
+	color: #717073;
+}
+:focus {
+	outline: none !important;
+}
+a	{
+	color: #717073;
+	text-decoration: none;
+}
+a:hover {
+	color: #d2232a;
+}
+
+/* Columns */
+.col {
+	float: left;
+}
+.left { float: left;}
+.right { float: right;}
+.col_01 { width: 240px; }
+.col_02 { width: 480px; }
+.col_03 { width: 720px; }
+.col_04 { width: 960px; }
+
+/* Navigation */
+.nav {}
+.nav ul {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.nav ul li {
+	float: left;
+	padding: 0;
+	margin: 0;
+	padding-left: 4px;
+	border-left: 1px solid #717073;
+	margin-left: 4px;
+	line-height: 14px;
+}
+.nav ul li a {}
+.nav ul li:first-child {
+	padding-left: 0;
+	border-left: 0;
+	margin-left: 0;
+}
+.nav ul li:first-child a {}
+
+/* Header */
+#header {
+	position: relative;
+	min-height: 60px;
+	padding: 10px 0;
+	border-bottom: 1px solid #717073;
+	margin-bottom: 10px;
+}
+#header .title {
+	padding: 30px 0 0 9px;
+	border-left: 1px solid #e6e7e8;
+}
+
+.title {}
+.title h1 {
+	position: absolute;
+	text-indent: -9999px;
+}
+.title .num {
+	margin-bottom: 0;
+	line-height: 40px;
+	font-weight: bold;
+	font-size: 34px;
+	color: #e6e7e8;
+}
+.title h2 {
+	line-height: 19px;
+	margin: 0;
+	font-weight: normal;
+	font-size: 16px;
+	color: #717073;
+}
+#header .nav {
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+}
+
+/* Body */
+#body {
+	position: relative;
+	margin-bottom: 10px;
+}
+#body .col .img {
+	position: relative;
+}
+#body .col .img img {
+	display: block;
+	margin-bottom: 0;
+}
+#body .col .img .text {
+	background: rgba(255, 255, 255, 0.5);
+	display: none;
+	position: absolute;
+	top: 50%;
+	height: 50%;
+	width: 100%;
+	font-family: sans-serif;
+	color: #717073;
+}
+#body .col .img:hover .text {
+	display: block;
+}
+#body .col .img .text .body {
+	padding: 10px;
+}
+#body .col .link .title {
+	padding-left: 9px;
+	border-right: 1px solid #e6e7e8
+}
+#body .col:first-child .link .title {
+	border-left: 1px solid #e6e7e8
+}
+#body .col .link:hover .title .num {
+	color: #d2232a;
+}
+#body .col .link:hover .title h2 {
+	color: #d2232a;
+}
+
+#body .col .art {}
+#body .col .art .meta {
+	padding: 10px 0 0 10px;
+	margin-bottom: 0;
+	line-height: 12px;
+	font-size: 10px;
+}
+
+#body .col .art .meta h4.title {
+	margin-bottom: 0;
+	line-height: 14px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#body .content {
+	text-align: justify;
+}
+
+byline {
+	font-style: italic;
+}
+
+/* Footer */
+#footer {
+	position: relative;
+	padding-top: 32px;
+}
+#footer .body {
+	position: relative;
+	width: 640px;
+	padding-top: 5px;
+	border-top: 1px solid #717073;
+	line-height: 14px;
+	font-size: 12px;
+}
+#footer .body .nav {
+	position: absolute;
+	top: 5px;
+	right: 0;
+}
+#site-name {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#site-name h1 {}
+#site-name h1 a {
+	background: url("../images/logo.png") no-repeat 0 0 scroll transparent;
+	display: block;
+	width: 310px;
+	height: 48px;
+	text-indent: -9999px;
+}
+#footer .nav {}
+
+/* Art */
+.art-text {
+	position: relative;
+	float: right;
+	width: 310px;
+	height: 430px;
+}
+.art-text .body {
+	position: absolute;
+	bottom: 20px;
+}
+.art-text .dots {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.art-text .dots ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.art-text .dots ul li {
+	float: left;
+	margin-left: 10px;
+}
+.art-text .dots ul li:first-child {
+	margin-left: 0;
+}
+.art-text .dots ul li a {
+	background: url("../images/dots.png") no-repeat 0 0 scroll transparent;
+	display: block;
+	width: 10px;
+	height: 10px;
+}
+.art-text .dots ul li:hover a {
+	background-position: 0 -20px;
+}
+.art-text .dots ul li.active a {
+	background-position: 0 -10px;
+}
+
+.arrows {}
+.arrows .arrow {
+	position: absolute;
+	top: 200px;
+}
+.arrows .arrow a {
+	background: url("../images/arrows.png") no-repeat 0 0 scroll transparent;
+	display: block;
+	width: 35px;
+	height: 28px;
+}
+.arrows .arrow.arrow-left {
+	left: -45px;
+}
+.arrows .arrow.arrow-left a {
+	background-position: 0 0;
+}
+.arrows .arrow.arrow-right {
+	right: -45px;
+}
+.arrows .arrow.arrow-right a {
+	background-position: 0 -28px;
+}

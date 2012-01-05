@@ -110,6 +110,14 @@ function blackbeetle_preprocess_page(&$vars) {
 
   // Link site name to frontpage
   $vars['site_name'] = l($vars['site_name'], '<front>');
+  
+  if (isset($vars['node']) && ($vars['node']->type == 'page')) {
+      
+      $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
+  }
+  
+  
+  
 }
 
 /**
