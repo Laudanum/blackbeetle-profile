@@ -1,0 +1,9 @@
+name = Black Beetle
+description = Black Beetle site functionality and support
+package = Other
+version = VERSION
+core = 7.x
+
+; Information added by drupal.org packaging script on 2009-05-13
+version = "1.0"
+

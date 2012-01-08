@@ -1,0 +1,369 @@
+<?php
+
+function blackbeetle_init() {
+  drupal_add_library('system', 'effects.slide');  
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function blackbeetle_block_info() {
+  $blocks = array();
+  
+  $blocks['get-front-sections'] = array(
+    'info' => t('Front Sections'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+    
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function blackbeetle_block_view($delta) {
+  switch ($delta) {
+    case 'get-front-sections':
+      return array(
+        'subject' => t('Front Sections'),
+        'content' => _blackbeetle_get_front_sections(),
+      );
+      break;
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function blackbeetle_menu() 
+{
+   $items['projects'] = array(
+        'title' => 'Selected Projects',
+        'page callback' => '_blackbeetle_get_projects',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+   );
+   
+   $items['arts'] = array(
+        'title' => 'Arts',
+        'page callback' => '_blackbeetle_get_arts',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+   );
+
+
+    return $items;
+}
+
+
+/*
+  returns a formatted row of front page sections like about,selected projects,arts,contact
+  */
+function _blackbeetle_get_front_sections() {
+    $output = "";
+    
+    $node_url = "";
+    $title = "";
+    $description = "";
+    
+    $image = "";
+    $image_uri = "";
+    $thumb_file_src = "";
+    $image_info = "";
+    
+    
+    //Get About content info based on title
+    $query = new EntityFieldQuery;
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('type', 'page')
+      ->propertyCondition('title', "About")
+      ->execute();
+
+    if (!empty($result['node'])) {
+      $nodes = node_load_multiple(array_keys($result['node']));
+      
+      $node_url = url("node/".current($nodes)->nid);
+      $title = current($nodes)->title;
+      
+      
+      foreach(current($nodes)->field_description as $desc_item){
+        $description = $desc_item[0]['value'];
+      }
+      
+      
+      $image = current($nodes)->field_image;
+      $image_uri = $image['und'][0]['uri'];
+      
+      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      
+      $image_info .= '<img src="' . $thumb_file_src . '" alt="" />';
+      
+      $output .= '<div class="col col_01">';
+      $output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<div class="img">';
+      $output .= $image_info;
+      $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
+      $output .= '<div class="title">';
+      $output .= '<span class="num">01</span>';
+      $output .= '<h2>' . $title . '</h2>';
+      $output .= '</div></a></div>'; 
+    }
+    
+    
+    
+    //Get Selected Project Info
+    
+    $node_url = "";
+    $title = "";
+    $description = "";
+    
+    $image = "";
+    $image_uri = "";
+    $thumb_file_src = "";
+    $image_info = "";
+    
+    $result = db_query("SELECT 
+                            node.nid AS nid
+                FROM 
+                {node} node
+                INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = '1') ))
+                ORDER BY rand()
+                LIMIT 1", array(
+                        )
+              );
+    
+    //  flatten the nids into an array
+    $nids = array();
+    foreach ($result as $obj) {
+      $nids[] = $obj->nid;
+    }    
+
+    //  load all the nodes now
+    $nodes = node_load_multiple($nids);
+    
+     if (!empty($nodes)) {
+         
+      //$node_url = url("node/".current($nodes)->nid);
+      $node_url = url("projects");
+      //$title = current($nodes)->title;
+      $description = "";
+      foreach(current($nodes)->field_description as $desc_item){
+        $description = $desc_item[0]['value'];
+      }
+      
+      //  get the first media asset
+      $media = current($nodes)->field_media;        
+      $first_image = array();
+      foreach($media as $value){
+        if(!empty($value)){
+          $first_image = $value[0];  
+          break;
+        }
+      }
+      
+      //Get File info.
+        if(!empty($first_image)) {
+            $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+            ':fid' => $first_image['fid']
+            ));
+            
+            $thumb_file_src = "";
+            foreach ( $file as $file_item ) {
+            //  if there is no file then skip ahead
+                if ( ! $file_item->filename ) 
+                  continue;
+                  
+                $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
+                
+            }    
+        }    
+      
+      $image_info = "";
+      $image_info = '<img src="' . $thumb_file_src . '" alt="" />';
+      
+      
+      $output .= '<div class="col col_01">';
+      //$output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<div class="img">';
+      $output .= $image_info;
+      $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
+      $output .= '<div class="title">';
+      $output .= '<span class="num">02</span>';
+      $output .= '<h2>Selected Projects</h2>';
+      $output .= '</div></a></div>';
+    
+    }
+    
+    
+    //Get Arts Info
+    
+    $node_url = "";
+    $title = "";
+    $description = "";
+    
+    $image = "";
+    $image_uri = "";
+    $thumb_file_src = "";
+    $image_info = "";
+    
+    $result = db_query("SELECT 
+                            node.nid AS nid
+                FROM 
+                {node} node
+                INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = '2') ))
+                ORDER BY rand()
+                LIMIT 1", array(
+                        )
+              );
+    
+    //  flatten the nids into an array
+    $nids = array();
+    foreach ($result as $obj) {
+      $nids[] = $obj->nid;
+    }    
+
+    //  load all the nodes now
+    $nodes = node_load_multiple($nids);
+    
+     if (!empty($nodes)) {
+         
+      //$node_url = url("node/".current($nodes)->nid);
+      $node_url = url("arts");
+      //$title = current($nodes)->title;
+      $description = "";
+      foreach(current($nodes)->field_description as $desc_item){
+        $description = $desc_item[0]['value'];
+      }
+      
+      //  get the first media asset
+      $media = current($nodes)->field_media;        
+      $first_image = array();
+      foreach($media as $value){
+        if(!empty($value)){
+          $first_image = $value[0];  
+          break;
+        }
+      }
+      
+      //Get File info.
+        if(!empty($first_image)) {
+            $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+            ':fid' => $first_image['fid']
+            ));
+            
+            $thumb_file_src = "";
+            foreach ( $file as $file_item ) {
+            //  if there is no file then skip ahead
+                if ( ! $file_item->filename ) 
+                  continue;
+                  
+                $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
+                
+            }    
+        }    
+      
+      $image_info = "";
+      $image_info = '<img src="' . $thumb_file_src . '" alt="" />';
+      
+      
+      $output .= '<div class="col col_01">';
+      //$output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<div class="img">';
+      $output .= $image_info;
+      $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
+      $output .= '<div class="title">';
+      $output .= '<span class="num">03</span>';
+      $output .= '<h2>Arts</h2>';
+      $output .= '</div></a></div>';
+    
+    }
+    
+    //Get Contact content info based on title
+    
+    $node_url = "";
+    $title = "";
+    $description = "";
+    
+    $image = "";
+    $image_uri = "";
+    $thumb_file_src = "";
+    $image_info = "";
+     
+    $query = new EntityFieldQuery;
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('type', 'page')
+      ->propertyCondition('title', "Contact")
+      ->execute();
+
+    if (!empty($result['node'])) {
+      $nodes = node_load_multiple(array_keys($result['node']));
+      
+      $node_url = url("node/".current($nodes)->nid);
+      $title = current($nodes)->title;
+      
+      
+      foreach(current($nodes)->field_description as $desc_item){
+        $description = $desc_item[0]['value'];
+      }
+      
+      
+      $image = current($nodes)->field_image;
+      $image_uri = $image['und'][0]['uri'];
+      
+      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      
+      $image_info .= '<img src="' . $thumb_file_src . '" alt="" />';
+      
+      $output .= '<div class="col col_01">';
+      $output .= '<a class="link" href="' . $node_url . '">';
+      $output .= '<div class="img">';
+      $output .= $image_info;
+      $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
+      $output .= '<div class="title">';
+      $output .= '<span class="num">04</span>';
+      $output .= '<h2>' . $title . '</h2>';
+      $output .= '</div></a></div>'; 
+    }  
+    
+    return $output;
+    
+}
+
+function _blackbeetle_get_projects() {
+     return "Coming Soon";
+}
+
+function _blackbeetle_get_arts() {
+    
+    return "Comming Soon";
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

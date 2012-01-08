@@ -113,6 +113,35 @@ function blackbeetle_preprocess_page(&$vars) {
   
   if (isset($vars['node']) && ($vars['node']->type == 'page')) {
       
+      global $base_url;
+      
+      $file_directory_path = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath();
+    
+      $node = $vars['node'];
+    
+      $node_url = url("node/".$node->nid);
+      $node_title = $node->title;
+      
+    
+      $body = "";
+      foreach($node->body as $key=>$value) {   
+        $body .= $node->body[$key][0]['safe_value'];
+      }
+      
+      $image = $node->field_image;
+      $image_uri = $image['und'][0]['uri'];
+      
+      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      
+      $image_info .= '<img src="' . $thumb_file_src . '" title="" />';
+      
+      
+      
+      $vars['node_url'] = $node_url;
+      $vars['node_title'] = $node_title;
+      $vars['body'] = $body;
+      $vars['image'] = $image_info;
+      
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }
   
@@ -482,4 +511,37 @@ function blackbeetle_views_mini_pager($vars) {
     ));
     return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'pager', 'views-mini-pager'))));
   }
+}
+
+/**
+ * Duplicate of theme_menu_local_tasks() but adds clearfix to tabs.
+ */
+function blackbeetle_menu_local_tasks(&$variables) {
+  $output = '';
+
+  if ($primary = drupal_render($variables['primary'])) {
+    $output .= '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
+    $output .= '<ul class="tabs primary clearfix">' . $primary . '</ul>';
+  }
+  if ($secondary = drupal_render($variables['secondary'])) {
+    $output .= '<h2 class="element-invisible">' . t('Secondary tabs') . '</h2>';
+    $output .= '<ul class="tabs secondary clearfix">' . $secondary . '</ul>';
+  }
+
+  return $output;
+}
+
+/**
+ * Override or insert variables into theme_menu_local_task().
+ */
+function blackbeetle_preprocess_menu_local_task(&$variables) {
+  $link =& $variables['element']['#link'];
+
+  // If the link does not contain HTML already, check_plain() it now.
+  // After we set 'html'=TRUE the link will not be sanitized by l().
+  if (empty($link['localized_options']['html'])) {
+    $link['title'] = check_plain($link['title']);
+  }
+  $link['localized_options']['html'] = TRUE;
+  $link['title'] = '<span class="tab">' . $link['title'] . '</span>';
 }

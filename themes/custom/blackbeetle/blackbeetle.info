@@ -15,6 +15,8 @@ regions[page_top] = Page top
 regions[page_bottom] = Page bottom
 regions[highlighted] = Highlighted
 
+regions[front_section] = Front Sections
+
 ; Stylesheets =================================================================
 
 stylesheets[all][] = reset.css
@@ -26,8 +28,12 @@ stylesheets[all][] = css/text.css
 stylesheets[all][] = css/960_12_10_10.css
 stylesheets[all][] = css/main.css
 
+stylesheets[all][] = css/tabs.css
+
 
 stylesheets[screen][] = drupal.css
+
+scripts[] = js/functions.js
 
 ; Information added by drupal.org packaging script on 2011-09-21
 version = "7.x-3.0-beta4"
