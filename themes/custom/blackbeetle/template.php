@@ -111,6 +111,122 @@ function blackbeetle_preprocess_page(&$vars) {
   // Link site name to frontpage
   $vars['site_name'] = l($vars['site_name'], '<front>');
   
+   if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2))) {
+    $tid = arg(2);
+    
+    //Get Selected Project Info
+    
+    $node_url = "";
+    $title = "";
+    $description = "";
+    
+    $byline = "";
+    $location = "";
+    $country = "";
+    
+    
+    $image = "";
+    $image_uri = "";
+    $thumb_file_src = "";
+    $image_info = "";
+    
+    $result = db_query("SELECT 
+                            node.nid AS nid
+                FROM 
+                {node} node
+                INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = :tid) ))
+                limit 4", array(
+                    ':tid' => $tid,
+                )
+              );
+    
+    //  flatten the nids into an array
+    $nids = array();
+    foreach ($result as $obj) {
+      $nids[] = $obj->nid;
+    }    
+
+    //  load all the nodes now
+    $nodes = node_load_multiple($nids);
+    
+     if (!empty($nodes)) {
+         
+         foreach($nodes as $current_node){
+             
+              $node_url = url("node/".$current_node->nid);
+              $title = $current_node->title;
+              
+              $byline = "";
+              foreach($current_node->field_byline as $byline_item){
+                $byline = $byline_item[0]['value'];
+              }
+              
+              
+              $location = "";
+              foreach($current_node->field_location as $location_item){
+                $location = $location_item[0]['value'];
+              }
+              
+              $country = "";
+              foreach($current_node->field_country as $country_item){
+                $country = $country_item[0]['value'];
+              }
+              
+              //  get the first media asset
+              $media = $current_node->field_media;        
+              $first_image = array();
+              foreach($media as $value){
+                if(!empty($value)){
+                  $first_image = $value[0];  
+                  break;
+                }
+              }
+              
+              //Get File info.
+                if(!empty($first_image)) {
+                    $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+                    ':fid' => $first_image['fid']
+                    ));
+                    
+                    $thumb_file_src = "";
+                    foreach ( $file as $file_item ) {
+                    //  if there is no file then skip ahead
+                        if ( ! $file_item->filename ) 
+                          continue;
+                          
+                        $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
+                        break;
+                        
+                    }    
+                }    
+              
+              $image_info = "";
+              $image_info = '<img src="' . $thumb_file_src . '" alt="" />';
+              
+              
+              $output .= '<div class="col col_01">';
+              $output .= '<a class="art" href="' . $node_url . '">';
+              $output .= '<div class="img">';
+              $output .= $image_info;
+              $output .= "</div>";
+              $output .= '<div class="meta"><h4 class="title">' . $title . '<br/>' . $byline . '</h4>';
+              $output .= $location . '<br/>' . $country ;
+              $output .= '</div></a></div>';
+             
+             
+             
+         }
+         
+      
+    }
+    
+    $vars['body'] =  $output;
+    $vars['theme_hook_suggestions'][] = 'page__taxonomy__term'. str_replace('_', '--', $tid);
+  }
+  
+  
+  
   if (isset($vars['node']) && ($vars['node']->type == 'page')) {
       
       global $base_url;
@@ -141,6 +257,101 @@ function blackbeetle_preprocess_page(&$vars) {
       $vars['node_title'] = $node_title;
       $vars['body'] = $body;
       $vars['image'] = $image_info;
+      
+      $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
+  }
+  
+  if (isset($vars['node']) && ($vars['node']->type == 'project')) {
+      
+      global $base_url;
+      
+      $file_directory_path = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath();
+    
+      $node = $vars['node'];
+    
+      $node_url = url("node/".$node->nid);
+      $node_title = $node->title;
+      
+    
+      $body = "";
+      foreach($node->body as $key=>$value) {   
+        $body .= $node->body[$key][0]['safe_value'];
+      }
+      
+      $byline = "";
+      foreach($node->field_byline as $byline_item){
+        $byline = $byline_item[0]['value'];
+      }
+      
+      
+      $location = "";
+      foreach($node->field_location as $location_item){
+        $location = $location_item[0]['value'];
+      }
+      
+      $country = "";
+      foreach($node->field_country as $country_item){
+        $country = $country_item[0]['value'];
+      }
+      
+      $category_id = "";
+      foreach($node->field_category as $category_item){
+        $category_id = $category_item[0]['tid'];
+      }
+      
+      $page_title = "";
+      $page_number = "";
+      
+      if($category_id == '1'){
+        $page_title = "Selected Prorjects";
+        $page_number = "02";  
+      }else {
+        $page_title = "Arts";
+        $page_number = "03";    
+      }
+      
+      //  get the first media asset
+      $media = $node->field_media;        
+      $first_image = array();
+      foreach($media as $value){
+        if(!empty($value)){
+          $first_image = $value[0];  
+          break;
+        }
+      }
+      
+      //Get File info.
+        if(!empty($first_image)) {
+            $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+            ':fid' => $first_image['fid']
+            ));
+            
+            $thumb_file_src = "";
+            foreach ( $file as $file_item ) {
+            //  if there is no file then skip ahead
+                if ( ! $file_item->filename ) 
+                  continue;
+                  
+                $large_file_src = image_style_url("large", $file_item->uri);
+                break;
+                
+            }    
+        }    
+      
+      $image_info = "";
+      $image_info = '<img src="' . $large_file_src . '" alt="" />';
+      
+      
+      $vars['page_title'] = $page_title;
+      $vars['page_number'] = $page_number;
+      
+      $vars['node_title'] = $node_title;
+      $vars['byline'] = $byline;
+      $vars['location'] = $location;
+      $vars['country'] = $country;
+      $vars['body'] = $body;
+      
+      $vars['media_info'] = $image_info;
       
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }

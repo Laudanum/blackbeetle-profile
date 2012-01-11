@@ -35,25 +35,10 @@ function blackbeetle_block_view($delta) {
 /**
  * Implements hook_menu().
  */
-function blackbeetle_menu() 
-{
-   $items['projects'] = array(
-        'title' => 'Selected Projects',
-        'page callback' => '_blackbeetle_get_projects',
-        'access arguments' => array('access content'),
-        'type' => MENU_CALLBACK,
-   );
-   
-   $items['arts'] = array(
-        'title' => 'Arts',
-        'page callback' => '_blackbeetle_get_arts',
-        'access arguments' => array('access content'),
-        'type' => MENU_CALLBACK,
-   );
-
-
-    return $items;
-}
+//function blackbeetle_menu() 
+//{
+//   
+//}
 
 
 /*
@@ -335,16 +320,6 @@ function _blackbeetle_get_front_sections() {
     
 }
 
-function _blackbeetle_get_projects() {
-     return "Coming Soon";
-}
-
-function _blackbeetle_get_arts() {
-    
-    return "Comming Soon";
-    
-    
-}
 
 
 

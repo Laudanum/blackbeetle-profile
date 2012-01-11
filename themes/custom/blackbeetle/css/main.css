@@ -208,8 +208,8 @@ byline {
 	height: 430px;
 }
 .art-text .body {
-	position: absolute;
-	bottom: 20px;
+	/*position: absolute;
+	bottom: 20px;*/
 }
 .art-text .dots {
 	position: absolute;
