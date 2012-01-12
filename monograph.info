@@ -59,6 +59,9 @@ dependencies[] = smartqueue
 dependencies[] = ctools
 dependencies[] = file_entity
 dependencies[] = media
+; http://drupal.org/node/1319000
+; fixes site install bug (Attempt to create a field of unknown type media)
+dependencies[] = mediafield
 dependencies[] = media_internet
 dependencies[] = media_vimeo
 dependencies[] = media_youtube
