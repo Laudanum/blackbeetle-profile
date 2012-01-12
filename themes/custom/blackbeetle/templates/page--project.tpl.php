@@ -11,14 +11,14 @@
             </div>
             <div id="body">
                 <div class="arrows">
-                    <div class="arrow arrow-left"><a href="javascript: void(0)"></a></div>
-                    <div class="arrow arrow-right"><a href="javascript: void(0)"></a></div>
-                </div>
+                    <div class="arrow arrow-left"><a  class="previous" href="javascript: void(0)"></a></div>
+                    <div class="arrow arrow-right"><a class="next" href="javascript: void(0)"></a></div>
+                </div>  
                 <div class="col" style="width: 630px; padding-right: 20px;">
-                    <a class="art" href="javascript: void(0)">
-                        <div class="img">
-                            <?php print $media_info; ?>
-                        </div>
+                   <div class="single_gallery">
+                       <?php print $media_info; ?>
+                   </div>
+                   <a class="art" href="javascript: void(0)">     
                         <div class="meta">
                             <h4 class="title"><?php print $node_title; ?> <br /> <?php print $byline; ?></h4>
                             <?php print $location; ?> <br />
@@ -34,11 +34,7 @@
                         <?php print $body; ?>
                     </div>
                     <div class="dots">
-                        <ul>
-                            <li class="active"><a href="javascript: void(0)"></a></li>
-                            <li><a href="javascript: void(0)"></a></li>
-                            <li><a href="javascript: void(0)"></a></li>
-                        </ul>
+                        <?php print $dots; ?>
                     </div>
                 </div>
                 <div class="clear">&nbsp;</div>

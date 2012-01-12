@@ -10,11 +10,14 @@
                 </div>
             </div>
             <div id="body">
-                <div class="arrows">
+                <!--<div class="arrows">
                     <div class="arrow arrow-left"><a href="javascript: void(0)"></a></div>
                     <div class="arrow arrow-right"><a href="javascript: void(0)"></a></div>
+                </div>-->
+                <div class="gallery">
+                    <?php print $body; ?>
                 </div>
-                <?php print $body; ?>
+                
                 <div class="clear">&nbsp;</div>
             </div>
             <div id="footer">

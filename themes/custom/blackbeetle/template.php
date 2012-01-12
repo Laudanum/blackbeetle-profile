@@ -136,7 +136,7 @@ function blackbeetle_preprocess_page(&$vars) {
                 {node} node
                 INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
                 WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = :tid) ))
-                limit 4", array(
+                ", array(
                     ':tid' => $tid,
                 )
               );
@@ -151,6 +151,8 @@ function blackbeetle_preprocess_page(&$vars) {
     $nodes = node_load_multiple($nids);
     
      if (!empty($nodes)) {
+         
+         $output = '<ul class="slide_items clearfix" >';
          
          foreach($nodes as $current_node){
              
@@ -205,18 +207,20 @@ function blackbeetle_preprocess_page(&$vars) {
               $image_info = '<img src="' . $thumb_file_src . '" alt="" />';
               
               
-              $output .= '<div class="col col_01">';
+              $output .= '<li class="col col_01">';
               $output .= '<a class="art" href="' . $node_url . '">';
               $output .= '<div class="img">';
               $output .= $image_info;
               $output .= "</div>";
               $output .= '<div class="meta"><h4 class="title">' . $title . '<br/>' . $byline . '</h4>';
               $output .= $location . '<br/>' . $country ;
-              $output .= '</div></a></div>';
-             
-             
+              $output .= '</div></a></li>';
              
          }
+         
+         $output .= "</ul>";
+         
+         if($output == '<ul class="slide_items clearfix" ></ul>') $output = '';
          
       
     }
@@ -268,6 +272,7 @@ function blackbeetle_preprocess_page(&$vars) {
       $file_directory_path = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath();
     
       $node = $vars['node'];
+       $iterator = 0;
     
       $node_url = url("node/".$node->nid);
       $node_title = $node->title;
@@ -310,36 +315,63 @@ function blackbeetle_preprocess_page(&$vars) {
         $page_number = "03";    
       }
       
-      //  get the first media asset
+      
       $media = $node->field_media;        
-      $first_image = array();
-      foreach($media as $value){
-        if(!empty($value)){
-          $first_image = $value[0];  
-          break;
+      
+      $gallery_info = "<ul>";
+      $dots = "<ul>";      
+      foreach($media as $media_item){
+          
+        if(!empty($media_item)){
+            
+          foreach($media_item as $current_image)  
+          
+           //Get File info.
+            if(!empty($current_image)) {
+                $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+                ':fid' => $current_image['fid']
+                ));
+                
+                //$caption_value = "";
+                $classes = array();
+            
+                $large_file_src = "";
+                foreach ( $file as $file_item ) {
+                //  if there is no file then skip ahead
+                    if ( ! $file_item->filename ) 
+                      continue;
+                      
+                 $large_file_src = image_style_url("large", $file_item->uri);
+                 
+                 if ( $iterator === 0 ) {
+                  $classes[] = "active";
+                  $classes[] = "first";
+                } 
+                $classes[] = "item-$iterator";
+
+                $gallery_info .= '<li class="' . implode(" ", $classes) . '"><a href="'. url("node/".$node->nid) .'" ><img src="' . $large_file_src . '" /></a>';
+                $gallery_info .= '</li>';
+                
+                $dots .= '<li class="' . implode(" ", $classes) . '"><a href="javascript:void(0)" ></a>';
+                $dots .= '</li>';
+                
+                $iterator++;
+                 
+                }    
+            }    
         }
+        
+        $gallery_info .= "</ul>";
+        $dots .= "</ul>";
+        
+        if($gallery_info == "<ul></ul>") {
+            $gallery_info = "";   
+            $dots = "";
+        }
+        
       }
       
-      //Get File info.
-        if(!empty($first_image)) {
-            $file = db_query("Select * from {file_managed} Where fid = :fid",array(
-            ':fid' => $first_image['fid']
-            ));
-            
-            $thumb_file_src = "";
-            foreach ( $file as $file_item ) {
-            //  if there is no file then skip ahead
-                if ( ! $file_item->filename ) 
-                  continue;
-                  
-                $large_file_src = image_style_url("large", $file_item->uri);
-                break;
-                
-            }    
-        }    
-      
-      $image_info = "";
-      $image_info = '<img src="' . $large_file_src . '" alt="" />';
+     
       
       
       $vars['page_title'] = $page_title;
@@ -351,7 +383,8 @@ function blackbeetle_preprocess_page(&$vars) {
       $vars['country'] = $country;
       $vars['body'] = $body;
       
-      $vars['media_info'] = $image_info;
+      $vars['media_info'] = $gallery_info;
+      $vars['dots'] = $dots;
       
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }
