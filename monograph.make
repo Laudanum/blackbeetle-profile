@@ -55,9 +55,11 @@ projects[addthis][version] = "2.1-beta1"
 ; colorbox & libraries
 projects[colorbox][subdir] = "contrib"
 
-libraries[colorbox][download][type] = "get"
-libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/tarball/master"
+; libraries[colorbox][download][type] = "get"
+; libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/tarball/master"
 ; libraries[colorbox][download][tag] = v2.1.2
+libraries[colorbox][download][type] = "git"
+libraries[colorbox][download][url] = "git://github.com/jackmoore/colorbox.git"
 libraries[colorbox][destination] = "libraries"   
 
 ; media
