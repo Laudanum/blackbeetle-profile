@@ -34,7 +34,7 @@
                         <div class="phone">ph: +61 2 9999 5555</div>
                     </div>
                     <div class="nav">
-                        
+                        <?php print $site_name; ?>   
                     </div>
                 </div>
                 <div id="site-name" class="footer-right">

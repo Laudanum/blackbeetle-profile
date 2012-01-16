@@ -18,13 +18,16 @@
                    <div class="single_gallery">
                        <?php print $media_info; ?>
                    </div>
-                   <a class="art" href="javascript: void(0)">     
-                        <div class="meta">
-                            <h4 class="title"><?php print $node_title; ?> <br /> <?php print $byline; ?></h4>
-                            <?php print $location; ?> <br />
-                            <?php print $country; ?>
-                        </div>
-                    </a>
+                   <div class="art">     
+                            <div class="meta">
+                                <h4 class="title"><?php print $node_title; ?></h4>
+                                <h4 class="title"><?php print $byline; ?></h4>
+                                <div class="location"><?php print $location; ?></div>
+                                <div class="country"><?php print $country; ?></div>
+                            </div>
+                   </div>
+                   
+                   
                 </div>
                 <div class="col art-text">
                     <?php if ($tabs = render($tabs)): ?>
@@ -44,9 +47,10 @@
                     <div class="contacts">
                         <div class="phone">ph: +61 2 9999 5555</div>
                     </div>
+                    <div class="nav"><?php print $site_name; ?></div>
                 </div>
                 <div id="site-name" class="footer-right">
-                    <h1><a href="home.html">SEO_BB</a></h1>
+                     <h1><?php print $site_name; ?></h1>
                 </div>
             </div>
         </div>

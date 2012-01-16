@@ -47,6 +47,7 @@ a:hover {
 #nice-menu-1 li a {
     padding: 0px;
     color: #717073;
+    text-transform: lowercase;
 }
 
 .nav {}
@@ -218,10 +219,13 @@ byline {
 	height: 430px;
 }
 .art-text .body {
-	/*position: absolute;
-	bottom: 20px;*/
-    overflow:scroll;
-    height: 340px;
+	position: absolute;
+	bottom: 20px;
+    overflow: hidden;
+    
+    
+    /*overflow:scroll;
+    height: 340px;*/
 }
 .art-text .dots {
 	position: absolute;
@@ -295,6 +299,7 @@ byline {
 /*Single Gallery for Art&Project */
 .single_gallery{
     position: relative;
+    height: 430px;
 }
 .single_gallery ul,
 .single_gallery ul li {

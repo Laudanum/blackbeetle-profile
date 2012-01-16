@@ -65,6 +65,7 @@
     position: absolute;
     top: 200px;
     right: -45px;
+    cursor: pointer;
 }
 
 .gallery .jcarousel-direction-rtl .jcarousel-next-horizontal {
@@ -96,6 +97,7 @@
     position: absolute;
     top: 200px;
     left: -45px;
+    cursor: pointer;
 }
 
 .gallery .jcarousel-direction-rtl .jcarousel-prev-horizontal {

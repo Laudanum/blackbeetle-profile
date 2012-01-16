@@ -9,9 +9,7 @@
                     <div class="contacts">
                         <div class="phone">ph: +61 2 9999 5555</div>
                     </div>
-                    <div class="nav">
-                        
-                    </div>
+                    <div class="nav"><?php print $site_name; ?></div>
                 </div>
                 <div id="site-name" class="footer-right">
                     <h1><?php print $site_name; ?></h1>

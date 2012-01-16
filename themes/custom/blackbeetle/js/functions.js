@@ -122,70 +122,57 @@ jQuery(document).ready(function(){
         }
       }
 
+          
     /* if we have a gallery set up a slideshow and run it */
         if(jQuery('.single_gallery ul li').size() > 1) {
           //  _startSlideshow();
 
-    //  create some buttons if we don't have them already
-          //jQuery(".single_gallery").append("<div class='arrows'><div class='arrow arrow-left'><a class='previous' href='javascript:void(0);'></a></div><div class='arrow arrow-right' ><a class='next' href='javascript:void(0);'></a></div></div>");
+        //  create some buttons if we don't have them already
+            jQuery(".arrow").show();
 
-    //  listen for clicks on the navigation arrows
-          jQuery(".arrows .arrow a").click(function(event) {
-            if ( jQuery(this).hasClass("next") ) {
-             // _stopSlideshow();
-              _showSlide();
-              _showDot();
-            } else if ( jQuery(this).hasClass("previous") ) {
-             // _stopSlideshow();
-              var _active_slide = jQuery('.single_gallery ul li.active');
-              _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.single_gallery ul li:last');
-              _showSlide(_previous_slide);
-              
-              var _active_dot = jQuery('.dots ul li.active');
-              _previous_dot = _active_dot.prev().length ? _active_dot.prev() : jQuery('.dots ul li:last');
-              _showSlide(_previous_dot);
-            }
-          });
-       }
-       
-       
-       //Clicking Dot
-       
-       jQuery(".dots ul li a").click(function(event) {
-           var className = jQuery(this).parent().attr('class').trim();
-           if(className != ""){
-             var last = className.split(" ");
-             var lastName =  last[last.length-1]; 
-             
-             var _active_slide = jQuery('.single_gallery ul li.' + lastName );
-              var _active_dot = jQuery(this).parent();
-              
-              _showSlide(_active_slide);
-              _showDot(_active_dot);
-             
-             
-             
-           }
-           
-           
-           
-          
-       });
-
-         
-
-    
+        //  listen for clicks on the navigation arrows
+              jQuery(".arrows .arrow a").click(function(event) {
+                if ( jQuery(this).hasClass("next") ) {
+                 // _stopSlideshow();
+                  _showSlide();
+                  _showDot();
+                } else if ( jQuery(this).hasClass("previous") ) {
+                 // _stopSlideshow();
+                  var _active_slide = jQuery('.single_gallery ul li.active');
+                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.single_gallery ul li:last');
+                  _showSlide(_previous_slide);
+                  
+                  var _active_dot = jQuery('.dots ul li.active');
+                  _previous_dot = _active_dot.prev().length ? _active_dot.prev() : jQuery('.dots ul li:last');
+                  _showSlide(_previous_dot);
+                }
+              });
+        }else {
+            jQuery(".arrow").hide();
+        }
         
         
-         
-    
-    
-        
-    
-
-
-	
-	
+        //Checking Dots size   
+        if(jQuery('.dots ul li').size() > 1) {
+                jQuery('.dots').show();
+                //Clicking Dot
+               jQuery(".dots ul li a").click(function(event) {
+                   
+                    var className = jQuery(this).parent().attr('class').trim();
+                    if(className != ""){
+                         var last = className.split(" ");
+                         var lastName =  last[last.length-1]; 
+                         
+                         var _active_slide = jQuery('.single_gallery ul li.' + lastName );
+                          var _active_dot = jQuery(this).parent();
+                          
+                          _showSlide(_active_slide);
+                          _showDot(_active_dot);
+                   }
+              });
+        }else {
+            jQuery('.dots').hide();
+        }
 	
 });
 
