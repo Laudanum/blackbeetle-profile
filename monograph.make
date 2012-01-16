@@ -84,3 +84,5 @@ projects[insert][subdir] = "contrib"
 projects[tao][type] = "theme"
 projects[tao][subdir] = "contrib"
 
+; blackbeetle
+projects[views_php][subdir] = "views_php"

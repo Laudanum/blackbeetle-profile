@@ -55,6 +55,8 @@ dependencies[] = googleanalytics
 dependencies[] = webform
 dependencies[] = nodequeue
 dependencies[] = smartqueue
+dependencies[] = views
+dependencies[] = views_ui
 
 dependencies[] = ctools
 dependencies[] = file_entity
@@ -74,3 +76,6 @@ dependencies[] = monograph_media
 dependencies[] = monograph_projects
 dependencies[] = monograph_editors
 ; dependencies[] = monograph_permissions
+
+; Blackbeetle requirements
+dependencies[] = views_php
