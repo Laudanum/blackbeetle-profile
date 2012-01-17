@@ -61,7 +61,7 @@ ul.links.inline li a {
  * input filter is given the 'prose' class. We want to format it with
  * readability and nice defaults in mind.
  */
-.prose { line-height:20px; }
+.prose { /*line-height:20px;*/ }
 
 .prose h1,
 .prose h2,

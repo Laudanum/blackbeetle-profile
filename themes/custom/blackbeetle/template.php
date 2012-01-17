@@ -110,6 +110,7 @@ function blackbeetle_preprocess_page(&$vars) {
 
   // Link site name to frontpage
   $vars['site_name'] = l($vars['site_name'], '<front>');
+  $vars['site_slogan'] = $vars['site_slogan'];
   
    if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2))) {
     $tid = arg(2);

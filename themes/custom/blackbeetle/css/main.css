@@ -186,7 +186,12 @@ byline {
 	position: relative;
 	padding-top: 32px;
 }
-#footer .body {
+
+#footer p {
+    margin: 0px;
+    padding: 0px;
+}
+#footer .footer_body {
 	position: relative;
 	width: 640px;
 	padding-top: 5px;
@@ -194,10 +199,22 @@ byline {
 	line-height: 14px;
 	font-size: 12px;
 }
-#footer .body .nav {
-	position: absolute;
-	top: 5px;
-	right: 0;
+
+#footer .footer_body .contacts {
+   float: left; 
+}
+
+#footer .footer_body .region-footer-left {
+   float: left;
+   margin-left: 5px;
+}
+
+#footer .footer_body .region-footer-right {
+    float: right;
+    margin-right: 5px;
+}
+#footer .footer_body .site-info {
+	float: right;
 }
 #site-name {
 	position: absolute;

@@ -21,11 +21,14 @@
                 <div class="clear">&nbsp;</div>
             </div>
             <div id="footer">
-                <div class="body footer-left">
+                <div class="footer_body clearfix">
                     <div class="contacts">
                         <div class="phone">ph: +61 2 9999 5555</div>
                     </div>
-                     <div class="nav"><?php print $site_name; ?></div>
+                    <?php print render($page['footer_left']); ?>
+                    
+                    <div class="site-info"> <?php print $site_slogan; ?></div>
+                    <?php print render($page['footer_right']); ?>
                 </div>
                 <div id="site-name" class="footer-right">
                     <h1><?php print $site_name; ?></h1>
