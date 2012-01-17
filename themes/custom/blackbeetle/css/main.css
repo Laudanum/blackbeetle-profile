@@ -169,6 +169,9 @@ a:hover {
 	font-weight: bold;
 	font-size: 12px;
 }
+#body .col .art .meta .byline {
+    font-style: italic;
+}
 
 #body .content {
 	text-align: justify;

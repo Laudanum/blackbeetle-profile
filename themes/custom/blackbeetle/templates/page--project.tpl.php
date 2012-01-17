@@ -21,7 +21,7 @@
                    <div class="art">     
                             <div class="meta">
                                 <h4 class="title"><?php print $node_title; ?></h4>
-                                <h4 class="title"><?php print $byline; ?></h4>
+                                <div class="byline"><?php print $byline; ?></div>
                                 <div class="location"><?php print $location; ?></div>
                                 <div class="country"><?php print $country; ?></div>
                             </div>
