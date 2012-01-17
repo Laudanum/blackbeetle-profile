@@ -23,6 +23,10 @@ projects[profiler][subdir] = "contrib"
 projects[entity][subdir] = "contrib"
 projects[views][subdir] = "contrib"
 projects[devel][subdir] = "developer"
+projects[coder][subdir] = "developer"
+projects[devel_themer][subdir] = "developer"
+projects[module_filter][subdir] = "developer"
+
 projects[libraries][subdir] = "contrib"
 projects[transliteration][subdir] = "contrib"
 projects[token][subdir] = "contrib"
@@ -85,4 +89,5 @@ projects[tao][type] = "theme"
 projects[tao][subdir] = "contrib"
 
 ; blackbeetle
-projects[views_php][subdir] = "views_php"
+projects[views_php][subdir] = "contrib"
+projects[nice_menus][subdir] = "contrib"

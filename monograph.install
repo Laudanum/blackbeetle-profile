@@ -17,7 +17,9 @@
 //		$result = module_enable(array("shortcuts", "media", "monograph_projects", "monograph_media"));
 
 		
-		_monograph_configure_wysiwyg();		
+		_monograph_configure_wysiwyg();	
+//		_blackbeetle_dummy_content();
+		
 //	moved to features
 //		_monograph_configure_shortcuts();
 		
@@ -25,6 +27,7 @@
 		module_disable(array("comments"));
 		
   // Enable the admin theme.
+  /*
 	  db_update('system')
 	    ->fields(array('status' => 1))
 	    ->condition('type', 'theme')
@@ -32,6 +35,23 @@
 	    ->execute();
 	  variable_set('admin_theme', 'seven');
 	  variable_set('node_admin_theme', '1');
+*/
+
+// Any themes without keys here will get numeric keys and so will be enabled,
+// but not placed into variables.
+    $enable = array(
+      'theme_default' => 'blackbeetle',
+      'admin_theme' => 'seven',
+    );
+    theme_enable($enable);
+ 
+    foreach ($enable as $var => $theme) {
+      if (!is_numeric($var)) {
+        variable_set($var, $theme);
+      }
+    }
+//  disbale the default theme
+    theme_disable(array('bartik'));
 
 	}
 	
@@ -45,6 +65,50 @@
 		shortcut_set_save($set);
 	}
 	
+	
+	function _blackbeetle_dummy_content() {
+//	  function devel_generate_terms($records, $vocabs, $maxlength = 12) {
+//  function devel_generate_content($form_state) {
+/*
+  if (count($form_state['values']['node_types'])) {
+    // Generate nodes.
+    devel_generate_content_pre_node($form_state['values']);
+    $start = time();
+    for ($i = 1; $i <= $form_state['values']['num_nodes']; $i++) {
+      devel_generate_content_add_node($form_state['values']);
+*/
+	  module_load_include('inc', 'devel_generate');
+//  should just generate the right terms in this case i guess
+    $vocabs = array('project_type');
+    
+//  should look up the correct vocab
+    $vids = array();
+    foreach ( $vocabs as $v ) {
+      if ( $vid = _monograph_get_vocabulary_by_name($v) ) {
+        $vids[] = $vid->vid;
+      }
+    }
+    
+    print_r($vids);
+    
+    devel_generate_terms(2, $vids);
+    $values = array(
+      'num_nodes' => 20,
+      'node_types' => array('project')
+    );
+	  devel_generate_content($values);
+	}
+
+function _monograph_get_vocabulary_by_name($vocabulary_name) {
+  $vocabs = taxonomy_get_vocabularies(NULL);
+  foreach ($vocabs as $vocab_object) {
+    if ($vocab_object->name == $vocabulary_name) {
+      return $vocab_object;
+    }
+  }
+  return NULL;
+}
+
 
 function _monograph_configure_wysiwyg() {
   //WYSIWYG Setup
