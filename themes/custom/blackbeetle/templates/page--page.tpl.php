@@ -6,7 +6,7 @@
                     <h2><?php print $title; ?></h2>
                 </div>
                 <div class="nav">
-                    <?php print render($page['header']);  ?>
+                    <?php print render($page['primary_menu']);  ?>
                 </div>
             </div>
             <div id="body" style="margin-bottom: 100px;">

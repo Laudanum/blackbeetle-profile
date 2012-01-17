@@ -7,6 +7,7 @@ name        = Black Beetle
 
 regions[sidebar_first] = Sidebar first
 regions[sidebar_second] = Sidebar second
+regions[primary_menu] = Primary Menu
 regions[content] = Content
 regions[header] = Header
 regions[help] = Help
@@ -14,6 +15,9 @@ regions[footer] = Footer
 regions[page_top] = Page top
 regions[page_bottom] = Page bottom
 regions[highlighted] = Highlighted
+
+regions[footer_left] = Footer Left
+regions[footer_right] = Footer Right
 
 regions[front_section] = Front Sections
 

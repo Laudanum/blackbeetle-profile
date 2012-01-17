@@ -6,7 +6,7 @@
                     <h2>Selected Projects</h2>
                 </div>
                 <div class="nav">
-                    <?php print render($page['header']);  ?>
+                    <?php print render($page['primary_menu']);  ?>
                 </div>
             </div>
             <div id="body">
