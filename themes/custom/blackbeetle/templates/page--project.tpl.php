@@ -6,7 +6,9 @@
                     <h2><?php print $page_title; ?></h2>
                 </div>
                 <div class="nav">
-                    <?php print render($page['primary_menu']);  ?>
+                    <?php if (isset($main_menu)) : ?>
+                        <?php print theme('links', array('links' => $main_menu, 'attributes' => array('class' => 'links main-menu'))) ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div id="body">

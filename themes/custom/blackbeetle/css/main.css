@@ -66,7 +66,7 @@ a:hover {
 	margin-left: 4px;
 	line-height: 14px;
 }
-.nav ul li a {}
+.nav ul li a { text-transform: lowercase;}
 .nav ul li:first-child {
 	padding-left: 0;
 	border-left: 0;
