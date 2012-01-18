@@ -25,11 +25,11 @@ sudo -u www-data git --git-dir=/home/laudanum/public_html/blackbeetle.com.au/bla
 admin > Repository Administration > Service Hooks > Post-Receive URLs
 */
 
-  $REPO = "/home/laudanum/public_html/blackbeetle.com.au/blackbeetle-profile/.git";
+  $REPO = "/home/laudanum/public_html/blackbeetle.com.au/blackbeetle-profile/";
 // Use in the "Post-Receive URLs" section of your GitHub repo.
   if ( $_REQUEST['payload'] ) {
 //  not sure why we have to reset afterwards too but otherwise the changes don't come in
-    $command = ("git --git-dir=$REPO reset --hard HEAD && git --git-dir=$REPO pull; git --git-dir=$REPO reset --hard HEAD");
+    $command = ("git --git-dir=$REPO.git reset --hard HEAD && git pull $REPO");
     echo shell_exec($command);
   }
   print "\nOK";
