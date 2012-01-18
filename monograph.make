@@ -20,7 +20,9 @@ core = 7.x
 
 ; utils
 projects[profiler][subdir] = "contrib"
+; needs dev for devel generate support of dev version of field collection
 projects[entity][subdir] = "contrib"
+projects[entity][version] = "1.x-dev"
 projects[views][subdir] = "contrib"
 projects[devel][subdir] = "developer"
 projects[coder][subdir] = "developer"
