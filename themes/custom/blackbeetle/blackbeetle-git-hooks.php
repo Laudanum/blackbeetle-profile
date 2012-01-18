@@ -25,19 +25,27 @@ sudo -u www-data git --git-dir=/home/laudanum/public_html/blackbeetle.com.au/bla
 admin > Repository Administration > Service Hooks > Post-Receive URLs
 */
 
-  $TREE = "/home/laudanum/public_html/blackbeetle.com.au/blackbeetle-profile";
-  $REPO = "$TREE/.git";
+  $DRUPAL = "/home/laudanum/public_html/blackbeetle.com.au/public";
+  $TREE   = "/home/laudanum/public_html/blackbeetle.com.au/blackbeetle-profile";
+  $REPO   = "$TREE/.git";
+  $URI    = "staging.blackbeetle.com.au";
   
 // Use in the "Post-Receive URLs" section of your GitHub repo.
   if ( $_REQUEST['payload'] ) {
-//  not sure why we have to reset afterwards too but otherwise the changes don't come in
     $command = "git --git-dir=$REPO reset --hard HEAD";
     echo $command . "\n";
     echo shell_exec($command) . "\n";
+//  www-data doesn't have `cd` so use fetch/merge instead
     $command = "git --git-dir=$REPO fetch";
     echo $command . "\n";
     echo shell_exec($command) . "\n";
+
     $command = "git --git-dir=$REPO --work-tree=$TREE merge origin/master";
+    echo $command . "\n";
+    echo shell_exec($command);
+    
+//  drush cc all
+    $command = "drush -r $DRUPAL --uri=$URI cc all";
     echo $command . "\n";
     echo shell_exec($command);
   }
