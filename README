@@ -8,7 +8,7 @@ v	add editor role
 v	add editor shortcuts
 x	look at media gallery modules
 -	add user 1 to editors
-- github post receive hooks add work-tree
+- github post receive hooks add work-tree add fetch/merge not pull
 
 Things we have to do post install
 -	Disable comments ( as we can't run standard_install without it )
