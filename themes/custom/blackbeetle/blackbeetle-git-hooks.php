@@ -44,8 +44,8 @@ admin > Repository Administration > Service Hooks > Post-Receive URLs
     echo $command . "\n";
     echo shell_exec($command);
     
-//  drush cc all
-    $command = "drush -r $DRUPAL --uri=$URI cc all";
+//  drush cc all redirect stderr to stdout
+    $command = "drush -r $DRUPAL --uri=$URI cc all  2>&1";
     echo $command . "\n";
     echo shell_exec($command);
   }
