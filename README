@@ -4,7 +4,7 @@ v	add captions/credits/titles/descriptions to media items
 -	disable comments
 v	better ckeditor button selection
 v	add editor role
--	add administrator shortcuts
+-	add administrator shortcuts (blocks, menus, clear cache)
 v	add editor shortcuts
 x	look at media gallery modules
 -	add user 1 to editors
