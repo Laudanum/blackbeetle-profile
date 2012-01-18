@@ -6,7 +6,9 @@
                     <h2><?php print $title; ?></h2>
                 </div>
                 <div class="nav">
-                    <?php print render($page['primary_menu']);  ?>
+                    <?php if (isset($main_menu)) : ?>
+                        <?php print theme('links', array('links' => $main_menu, 'attributes' => array('class' => 'links main-menu'))) ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div id="body" style="margin-bottom: 100px;">
@@ -30,15 +32,10 @@
             </div>
             <div id="footer">
                 <div class="footer_body clearfix">
-                    <div class="contacts">
-                        <div class="phone">ph: +61 2 9999 5555</div>
-                    </div>
                     <?php print render($page['footer_left']); ?>
-                    
-                    <div class="site-info"> <?php print $site_slogan; ?></div>
                     <?php print render($page['footer_right']); ?>
                 </div>
-                <div id="site-name" class="footer-right">
+                <div id="site-name">
                     <h1><?php print $site_name; ?></h1>
                 </div>
             </div>

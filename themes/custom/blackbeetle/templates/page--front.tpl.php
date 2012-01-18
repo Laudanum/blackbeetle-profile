@@ -6,12 +6,7 @@
             </div>
             <div id="footer">
                 <div class="footer_body clearfix">
-                    <div class="contacts">
-                        <div class="phone">ph: +61 2 9999 5555</div>
-                    </div>
                     <?php print render($page['footer_left']); ?>
-                    
-                    <div class="site-info"> <?php print $site_slogan; ?></div>
                     <?php print render($page['footer_right']); ?>
                 </div>
                 <div id="site-name">
