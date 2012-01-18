@@ -213,9 +213,9 @@ function blackbeetle_preprocess_page(&$vars) {
               $output .= '<div class="img">';
               $output .= $image_info;
               $output .= "</div>";
-              $output .= '<div class="meta"><h4 class="title">' . $title . '<br/>' . $byline . '</h4>';
-              $output .= $location . '<br/>' . $country ;
-              $output .= '</div></a></li>';
+              $output .= '<div class="meta"><h4 class="title">' . $title . '</h4><div class="byline" >' . $byline . '</div>';
+              $output .= '<div class="location">'.$location . '</div><div class="country">' . $country ;
+              $output .= '</div></div></a></li>';
              
          }
          
