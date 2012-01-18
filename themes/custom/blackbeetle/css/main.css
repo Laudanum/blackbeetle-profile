@@ -206,12 +206,10 @@ byline {
 
 #footer .footer_body .region-footer-left {
    float: left;
-   margin-left: 5px;
 }
 
 #footer .footer_body .region-footer-right {
     float: right;
-    margin-right: 5px;
 }
 #footer .footer_body .site-info {
 	float: right;
