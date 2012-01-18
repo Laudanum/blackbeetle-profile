@@ -80,10 +80,11 @@ dependencies[] = monograph_pages
 
 ; Developer
 dependencies[] = devel
+dependencies[] = devel_generate
+dependencies[] = devel_themer
 dependencies[] = coder
 dependencies[] = coder_review
 dependencies[] = module_filter
-dependencies[] = devel_themer
 
 ; Blackbeetle requirements
 dependencies[] = nice_menus

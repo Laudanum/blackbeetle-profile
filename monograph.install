@@ -1,5 +1,10 @@
 <?php
 
+/*  
+  @TODO for (type)project (field)downloads we need a files/downloads directory created
+  @TODO generate needs looking at for collections (it fails badly)
+  @TODO if we're in a subprofile we could create the correct terms
+*/
 	function monograph_install() {
 		include_once DRUPAL_ROOT . '/profiles/standard/standard.install';
 		standard_install();
