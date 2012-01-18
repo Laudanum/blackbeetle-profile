@@ -37,7 +37,7 @@ admin > Repository Administration > Service Hooks > Post-Receive URLs
     $command = "git --git-dir=$REPO fetch";
     echo $command . "\n";
     echo shell_exec($command) . "\n";
-    $command = "git --git-dir=$REPO --work-tree=$TREE merge origin/master;
+    $command = "git --git-dir=$REPO --work-tree=$TREE merge origin/master";
     echo $command . "\n";
     echo shell_exec($command);
   }
