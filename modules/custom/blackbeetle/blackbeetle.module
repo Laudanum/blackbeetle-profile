@@ -119,12 +119,32 @@ function _blackbeetle_get_front_sections() {
 //                        )
 //              );
 
-$result = db_query("SELECT 
+    //Taxonomy Data
+    $pdata = db_query("SELECT d.tid as id, d.name, d.description FROM {taxonomy_vocabulary} v inner join {taxonomy_term_data} d on v.vid = d.vid WHERE d.tid = :tid order by name ", array(
+          ':tid' => '1',
+          ));
+          
+    $taxonomy_name = "";
+    $description = "";
+          
+    foreach($pdata as $term_data){
+        $tid = $term_data->id;
+        $taxonomy_name = $term_data->name;
+        $description = $term_data->description;
+    }
+    
+     
+    $page_title = $taxonomy_name;
+    $page_number = "0" . ($tid +1);   
+    
+     
+
+    $result = db_query("SELECT 
                             node.nid AS nid
                 FROM 
                 {node} node
                 INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
-                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = '1') ))
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (node.promote = '1') AND (field_data_field_category.field_category_tid = '1') ))
                 ORDER BY rand()
                 LIMIT 1", array(
                         )
@@ -144,10 +164,6 @@ $result = db_query("SELECT
       //$node_url = url("node/".current($nodes)->nid);
       $node_url = url("projects");
       //$title = current($nodes)->title;
-      $description = "";
-      foreach(current($nodes)->field_description as $desc_item){
-        $description = $desc_item[0]['value'];
-      }
       
       //  get the first media asset
       $media = current($nodes)->field_media;        
@@ -187,8 +203,8 @@ $result = db_query("SELECT
       $output .= $image_info;
       $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
       $output .= '<div class="title">';
-      $output .= '<span class="num">02</span>';
-      $output .= '<h2>Selected Projects</h2>';
+      $output .= '<span class="num">' . $page_number . '</span>';
+      $output .= '<h2>' . $page_title . '</h2>';
       $output .= '</div></a></div>';
     
     }
@@ -205,16 +221,48 @@ $result = db_query("SELECT
     $thumb_file_src = "";
     $image_info = "";
     
-    $result = db_query("SELECT 
+     //Taxonomy Data
+    $pdata = db_query("SELECT d.tid as id, d.name, d.description FROM {taxonomy_vocabulary} v inner join {taxonomy_term_data} d on v.vid = d.vid WHERE d.tid = :tid order by name ", array(
+          ':tid' => '2',
+          ));
+          
+    $taxonomy_name = "";
+    $description = "";
+    
+    foreach($pdata as $term_data){
+        $tid = $term_data->id;
+        $taxonomy_name = $term_data->name;
+        $description = $term_data->description;
+    }
+    
+     
+    $page_title = $taxonomy_name;
+    $page_number = "0" . ($tid +1);   
+    
+    //$result = db_query("SELECT 
+//                            node.nid AS nid
+//                FROM 
+//                {node} node
+//                INNER JOIN {field_data_field_project_type} field_data_field_project_type ON node.nid = field_data_field_project_type.entity_id AND (field_data_field_project_type.entity_type = 'node' AND field_data_field_project_type.deleted = 0)
+//                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_project_type.field_project_type_tid = '2') ))
+//                ORDER BY rand()
+//                LIMIT 1", array(
+//                        )
+//              );
+
+
+ $result = db_query("SELECT 
                             node.nid AS nid
                 FROM 
                 {node} node
-                INNER JOIN {field_data_field_project_type} field_data_field_project_type ON node.nid = field_data_field_project_type.entity_id AND (field_data_field_project_type.entity_type = 'node' AND field_data_field_project_type.deleted = 0)
-                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_project_type.field_project_type_tid = '2') ))
+                INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (node.promote = '1') AND (field_data_field_category.field_category_tid = '2') ))
                 ORDER BY rand()
                 LIMIT 1", array(
                         )
               );
+    
+    
     
     //  flatten the nids into an array
     $nids = array();
@@ -230,11 +278,7 @@ $result = db_query("SELECT
       //$node_url = url("node/".current($nodes)->nid);
       $node_url = url("arts");
       //$title = current($nodes)->title;
-      $description = "";
-      foreach(current($nodes)->field_description as $desc_item){
-        $description = $desc_item[0]['value'];
-      }
-      
+            
       //  get the first media asset
       $media = current($nodes)->field_media;        
       $first_image = array();
@@ -273,8 +317,8 @@ $result = db_query("SELECT
       $output .= $image_info;
       $output .= '<div class="text"><div class="body">' . $description . '</div></div></div>';
       $output .= '<div class="title">';
-      $output .= '<span class="num">03</span>';
-      $output .= '<h2>Arts</h2>';
+      $output .= '<span class="num">' . $page_number . '</span>';
+      $output .= '<h2>' . $page_title . '</h2>';
       $output .= '</div></a></div>';
     
     }
