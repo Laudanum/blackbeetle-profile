@@ -25,8 +25,8 @@ sudo -u www-data git --git-dir=/home/laudanum/public_html/blackbeetle.com.au/bla
 admin > Repository Administration > Service Hooks > Post-Receive URLs
 */
 
-  $DRUPAL = "/home/laudanum/public_html/blackbeetle.com.au/public";
-  $TREE   = "/home/laudanum/public_html/blackbeetle.com.au/blackbeetle-profile";
+  $DRUPAL = "/home/laudanum/public_html/blackbeetle.com.au/source";
+  $TREE   = "/home/laudanum/public_html/blackbeetle.com.au/source/profiles/monograph";
   $REPO   = "$TREE/.git";
   $URI    = "staging.blackbeetle.com.au";
   
