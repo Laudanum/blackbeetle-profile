@@ -19,6 +19,11 @@ a:hover {
 .col {
 	float: left;
 }
+
+body.front .col,
+body.page-taxonomy-term .col {
+  cursor : pointer;
+}
 .left { float: left;}
 .right { float: right;}
 .col_01 { width: 240px; }
