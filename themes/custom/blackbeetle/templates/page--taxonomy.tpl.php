@@ -2,8 +2,8 @@
             <div id="header">
                 <div class="title">
                     <h1><?php print $site_name; ?></h1>
-                    <span class="num">02</span>
-                    <h2>Selected Projects</h2>
+                    <span class="num"><?php print $page_number; ?></span>
+                    <h2><?php print $page_title; ?></h2>
                 </div>
                 <div class="nav">
                     <?php if (isset($main_menu)) : ?>

@@ -131,6 +131,28 @@ function blackbeetle_preprocess_page(&$vars) {
     $thumb_file_src = "";
     $image_info = "";
     
+    //Taxonomy Data
+    $pdata = db_query("SELECT d.tid as id, d.name FROM {taxonomy_vocabulary} v inner join {taxonomy_term_data} d on v.vid = d.vid WHERE d.tid = :tid order by name ", array(
+          ':tid' => $tid,
+          ));
+          
+    $taxonomy_name = "";
+          
+    foreach($pdata as $term_data){
+        $tid = $term_data->id;
+        $taxonomy_name = $term_data->name;
+    }
+    
+     
+    $page_title = $taxonomy_name;
+    $page_number = "0" . ($tid +1);    
+     
+      
+    $vars['page_title'] = $page_title;
+    $vars['page_number'] = $page_number;
+    
+    
+    
 /*
   get project ID's (nids) related to this page's term
   @TODO this is probably unsorted–we need to interact with nodequeue
@@ -236,7 +258,7 @@ function blackbeetle_preprocess_page(&$vars) {
     }
     
     $vars['body'] =  $output;
-    $vars['theme_hook_suggestions'][] = 'page__taxonomy__term'. str_replace('_', '--', $tid);
+    //$vars['theme_hook_suggestions'][] = 'page__taxonomy__term'. str_replace('_', '--', $tid);
   }
   
   if (isset($vars['node']) && ($vars['node']->type == 'page')) {
@@ -466,16 +488,24 @@ function blackbeetle_preprocess_page(&$vars) {
       $page_title = "";
       $page_number = "";
       
-      if($category_id == '1'){
-        $page_title = "Selected Prorjects";
-        $page_number = "02";  
-      }else {
-        $page_title = "Arts";
-        $page_number = "03";    
-      }
-      
-      $vars['page_title'] = $page_title;
-      $vars['page_number'] = $page_number;
+      //Taxonomy Data
+    $pdata = db_query("SELECT d.tid as id, d.name FROM {taxonomy_vocabulary} v inner join {taxonomy_term_data} d on v.vid = d.vid WHERE d.tid = :tid order by name ", array(
+          ':tid' => $category_id,
+          ));
+          
+        $taxonomy_name = "";
+              
+        foreach($pdata as $term_data){
+            $tid = $term_data->id;
+            $taxonomy_name = $term_data->name;
+        }
+        
+         
+        $page_title = $taxonomy_name;
+        $page_number = "0" . ($tid +1);    
+          
+        $vars['page_title'] = $page_title;
+        $vars['page_number'] = $page_number;
       
       $vars['slide_items'] = $output_slide_items;
       $vars['slide_items_right'] = $output_slide_items_right;
