@@ -138,14 +138,14 @@ function blackbeetle_preprocess_page(&$vars) {
     $result = db_query("
       SELECT node.nid AS nid
       FROM {node} node
-      INNER JOIN {field_data_field_project_type} field_data_field_project_type ON node.nid = field_data_field_project_type.entity_id 
+      INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id 
       AND (
-        field_data_field_project_type.entity_type = 'node' 
-        AND field_data_field_project_type.deleted = 0
+        field_data_field_category.entity_type = 'node' 
+        AND field_data_field_category.deleted = 0
       )
       WHERE node.status = 1
       AND node.type = 'project'
-      AND field_data_field_project_type.field_project_type_tid = :tid
+      AND field_data_field_category.field_category_tid = :tid
       ", array(
         ':tid' => $tid,
       )
