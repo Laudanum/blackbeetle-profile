@@ -108,12 +108,23 @@ function _blackbeetle_get_front_sections() {
     $thumb_file_src = "";
     $image_info = "";
     
-    $result = db_query("SELECT 
+   // $result = db_query("SELECT 
+//                            node.nid AS nid
+//                FROM 
+//                {node} node
+//                INNER JOIN {field_data_field_project_type} field_data_field_project_type ON node.nid = field_data_field_project_type.entity_id AND (field_data_field_project_type.entity_type = 'node' AND field_data_field_project_type.deleted = 0)
+//                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_project_type.field_project_type_tid = '1') ))
+//                ORDER BY rand()
+//                LIMIT 1", array(
+//                        )
+//              );
+
+$result = db_query("SELECT 
                             node.nid AS nid
                 FROM 
                 {node} node
-                INNER JOIN {field_data_field_project_type} field_data_field_project_type ON node.nid = field_data_field_project_type.entity_id AND (field_data_field_project_type.entity_type = 'node' AND field_data_field_project_type.deleted = 0)
-                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_project_type.field_project_type_tid = '1') ))
+                INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = '1') ))
                 ORDER BY rand()
                 LIMIT 1", array(
                         )
