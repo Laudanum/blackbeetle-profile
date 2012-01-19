@@ -28,10 +28,10 @@ jQuery(document).ready(function(){
     /* show a particular slide, or the next slide if no slide is specified */
       var _showSlide = function(_next_slide) {
           
-            var _active_slide = jQuery('.single_gallery ul li.active');
-            if ( _active_slide.length == 0 ) _active_slide = jQuery('.single_gallery ul li:last');
+           var _active_slide = jQuery('.slide_items li.active-project');
+            if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items li.project:last');
             if ( ! _next_slide ) {
-              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.single_gallery ul li:first');
+              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items li.project:first');
             }
 
         //  if the previous slide is still running then don't do anything
@@ -41,7 +41,57 @@ jQuery(document).ready(function(){
 
              _active_slide.addClass('last-active');
             //_updateSlideInfo(_next_slide);
-            _next_slide.css({opacity: 0.0}).addClass('active').animate(
+            _next_slide.css({opacity: 0.0}).addClass('active-project').animate(
+              {opacity: 1.0}, 
+              transition_speed, 
+              function() {
+                _active_slide.removeClass('active-project last-active');
+              }
+            ); 
+      }
+      
+      /* show a particular content slide, or the next slide if no slide is specified */
+      var _showContentSlide = function(_next_slide) {
+          
+            var _active_slide = jQuery('.slide_items_right li.active-project');
+            if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items_right li.project:last');
+            if ( ! _next_slide ) {
+              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items_right li.project:first');
+            }
+
+        //  if the previous slide is still running then don't do anything
+            if (_active_slide.is(':animated') ) {
+              return false;
+            }
+
+             _active_slide.addClass('last-active');
+            //_updateSlideInfo(_next_slide);
+            _next_slide.css({opacity: 0.0}).addClass('active-project').animate(
+              {opacity: 1.0}, 
+              transition_speed, 
+              function() {
+                _active_slide.removeClass('active-project last-active');
+              }
+            ); 
+      }
+      
+      /* show a particular image of Project or Art*/
+      var _showImageSlide = function(_next_image_slide) {
+          
+            var _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li.active');
+            if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li:last');
+            if ( ! _next_image_slide ) {
+              _next_image_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items li.active-project .single_gallery ul li:first');
+            }
+
+        //  if the previous slide is still running then don't do anything
+            if (_active_slide.is(':animated') ) {
+              return false;
+            }
+
+             _active_slide.addClass('last-active');
+            //_updateSlideInfo(_next_slide);
+            _next_image_slide.css({opacity: 0.0}).addClass('active').animate(
               {opacity: 1.0}, 
               transition_speed, 
               function() {
@@ -50,13 +100,17 @@ jQuery(document).ready(function(){
             ); 
       }
       
+      
+      
+      
+      
       /* show a particular dot, or the next dot if no dot is specified */
       var _showDot = function(_next_dot) {
           
-            var _active_dot = jQuery('.dots ul li.active');
-            if ( _active_dot.length == 0 ) _active_dot = jQuery('.dots ul li:last');
+            var _active_dot = jQuery('li.active-project .dots ul li.active');
+            if ( _active_dot.length == 0 ) _active_dot = jQuery('li.active-project .dots ul li:last');
             if ( ! _next_dot ) {
-              _next_dot =  _active_dot.next().length ? _active_dot.next() : jQuery('.dots ul li:first');
+              _next_dot =  _active_dot.next().length ? _active_dot.next() : jQuery('li.active-project .dots ul li:first');
             }
 
         //  if the previous slide is still running then don't do anything
@@ -124,7 +178,7 @@ jQuery(document).ready(function(){
 
           
     /* if we have a gallery set up a slideshow and run it */
-        if(jQuery('.single_gallery ul li').size() > 1) {
+        if(jQuery('.slide_items li').size() > 1) {
           //  _startSlideshow();
 
         //  create some buttons if we don't have them already
@@ -132,47 +186,58 @@ jQuery(document).ready(function(){
 
         //  listen for clicks on the navigation arrows
               jQuery(".arrows .arrow a").click(function(event) {
+                  
                 if ( jQuery(this).hasClass("next") ) {
                  // _stopSlideshow();
                   _showSlide();
-                  _showDot();
+                  _showContentSlide();
+                 
                 } else if ( jQuery(this).hasClass("previous") ) {
                  // _stopSlideshow();
-                  var _active_slide = jQuery('.single_gallery ul li.active');
-                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.single_gallery ul li:last');
+                  var _active_slide = jQuery('.slide_items li.active-project');
+                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.slide_items li.project:last');
+                  
                   _showSlide(_previous_slide);
                   
-                  var _active_dot = jQuery('.dots ul li.active');
-                  _previous_dot = _active_dot.prev().length ? _active_dot.prev() : jQuery('.dots ul li:last');
-                  _showSlide(_previous_dot);
+                  _active_slide = jQuery('.slide_items_right li.active-project');
+                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.slide_items_right li.project:last');
+                  
+                  _showContentSlide(_previous_slide);
                 }
               });
+              
+                         
+              
+              
         }else {
             jQuery(".arrow").hide();
         }
         
         
         //Checking Dots size   
-        if(jQuery('.dots ul li').size() > 1) {
-                jQuery('.dots').show();
+        if(jQuery('li .dots ul li').size() > 1) {
+                jQuery('li .dots').show();
+        }else {
+            jQuery('li .dots').hide();
+        }
                 //Clicking Dot
-               jQuery(".dots ul li a").click(function(event) {
+               jQuery("li .dots ul li a").click(function(event) {
+                    
+                   if(jQuery(this).parent().hasClass('active')) return;
                    
                     var className = jQuery(this).parent().attr('class').trim();
                     if(className != ""){
                          var last = className.split(" ");
                          var lastName =  last[last.length-1]; 
                          
-                         var _active_slide = jQuery('.single_gallery ul li.' + lastName );
+                         var _active_slide = jQuery('li.active-project .single_gallery ul li.' + lastName );
                           var _active_dot = jQuery(this).parent();
                           
-                          _showSlide(_active_slide);
+                          _showImageSlide(_active_slide);
                           _showDot(_active_dot);
                    }
               });
-        }else {
-            jQuery('.dots').hide();
-        }
+        
 	
 });
 

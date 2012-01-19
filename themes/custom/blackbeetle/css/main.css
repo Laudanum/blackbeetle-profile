@@ -173,6 +173,12 @@ a:hover {
     font-style: italic;
 }
 
+.col.full_image {
+    width: 630px; 
+    height: 500px;
+    padding-right: 20px;
+}
+
 #body .content {
 	text-align: justify;
 }
@@ -238,10 +244,9 @@ byline {
 }
 .art-text .body {
 	position: absolute;
-	bottom: 20px;
+	bottom: 0px;
     overflow: hidden;
-    
-    
+    text-align: left;
     /*overflow:scroll;
     height: 340px;*/
 }
@@ -342,12 +347,6 @@ byline {
   z-index : 9;
 }
 
-.single_gallery ul li .detail-info {
-    display: none;
-}
-.single_gallery ul li .detail-body {
-    display: none;
-}
 
 .single_gallery ul li a {
   width : 100%;
@@ -360,7 +359,81 @@ byline {
     /*max-width : 100%;
     max-height : 100%;*/
 }
-.single_gallery ul li.crop img {
-   width : 100%;
-   height : auto;
+
+/*Selected/Arts page*/
+
+/*Single Gallery for Art&Project */
+.col .slide_items
+ {
+    position: relative;
+    margin-bottom: 0px;
 }
+.col .slide_items_right
+ {
+    position: relative;
+    
+}
+
+
+.col .slide_items li {
+    width : 630px;
+    position : absolute;
+    list-style : none;
+    padding : 0;
+    margin : 0;
+    text-align : center;
+    overflow : hidden;
+    z-index: 6;
+}
+
+.col .slide_items_right li {
+    
+    position : absolute;
+    list-style : none;
+    padding : 0;
+    margin : 0;
+    text-align : center;
+    overflow : hidden;
+    z-index: 6;
+    width: 310px;
+    height: 400px;
+}
+
+.col .slide_items_right .dots ul li {
+    width: 10px;
+    height: 10px;
+    display: block;
+    position: relative;
+}
+
+
+.col .slide_items li,
+.col .slide_items_right li  {
+    display: none;
+}
+.col .slide_items li.active,
+.col .slide_items li.active-project,
+.col .slide_items_right li.active,
+.col .slide_items_right li.active-project {
+    z-index: 8;
+    display: block; 
+}
+.col .slide_items li.last-active,
+.col .slide_items_right li.last-active {
+  z-index : 7;
+}
+
+.col .slide_items li a{
+ /* width : 100%;
+  height : 100%;*/
+ text-align: left;
+  display : block;
+}
+.col .slide_items li img {
+  height : 100%;
+    /*max-width : 100%;
+    max-height : 100%;*/
+}
+
+
+

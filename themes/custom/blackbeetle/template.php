@@ -275,43 +275,197 @@ function blackbeetle_preprocess_page(&$vars) {
       global $base_url;
       
       $file_directory_path = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath();
+      
+      //Current Node info
+      $current_node = $vars['node'];
+      $current_node_id = $current_node->nid;
+      
+      //Taxonomy term
+      $category_id = "";
+      foreach($current_node->field_category as $category_item){
+        $category_id = $category_item[0]['tid'];
+      }
+      
+   /***** Get selected projects/arts list *****/
+      
+      $result = db_query("SELECT 
+                                node.nid AS nid
+                            FROM 
+                            {node} node
+                            INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id AND (field_data_field_category.entity_type = 'node' AND field_data_field_category.deleted = 0)
+                            WHERE (( (node.status = '1') AND (node.type IN  ('project')) AND (field_data_field_category.field_category_tid = :tid) ))
+                                ", array(
+                                    ':tid' => $category_id,));
     
-      $node = $vars['node'];
-       $iterator = 0;
-    
-      $node_url = url("node/".$node->nid);
-      $node_title = $node->title;
-      
-    
-      $body = "";
-      foreach($node->body as $key=>$value) {   
-        $body .= $node->body[$key][0]['safe_value'];
-      }
-      
-      $byline = "";
-      foreach($node->field_byline as $byline_item){
-        $byline = $byline_item[0]['value'];
-      }
-      
-      $location = "";
-      foreach($node->field_location as $location_item){
-        $location = $location_item[0]['value'];
-      }
-      
-      $country = "";
-      foreach($node->field_country as $country_item){
-        $country = $country_item[0]['value'];
-      }
-      
-      $project_type_id = "";
-      foreach($node->field_project_type as $project_type_item){
-        $project_type_id = $project_type_item[0]['tid'];
-      }
+        //  flatten the nids into an array
+        $nids = array();
+        foreach ($result as $obj) {
+          $nids[] = $obj->nid;
+        }    
+
+        //  load all the nodes now
+        $nodes = node_load_multiple($nids);
+        
+         if (!empty($nodes)) {
+         
+            $output_slide_items = '<ul class="slide_items clearfix" >';
+            $output_slide_items_right = '<ul class="slide_items_right clearfix" >';
+            
+            $node_count = 0;
+            
+            foreach($nodes as $node_item){
+                 
+                  $node_url = url("node/".$node_item->nid);
+                  $title = $node_item->title;
+                  
+                  $byline = "";
+                  foreach($node_item->field_byline as $byline_item){
+                    $byline = $byline_item[0]['value'];
+                  }
+                  
+                  
+                  $location = "";
+                  foreach($node_item->field_location as $location_item){
+                    $location = $location_item[0]['value'];
+                  }
+                  
+                  $country = "";
+                  foreach($node_item->field_country as $country_item){
+                    $country = $country_item[0]['value'];
+                  }
+                  
+                  $body = "";
+                  foreach($node_item->body as $key=>$value) {   
+                    $body .= $node_item->body[$key][0]['safe_value'];
+                  }
+                  
+                  //  get the first media asset
+                  $media = $node_item->field_media; 
+                  
+                  $gallery_info = "<ul>";
+                  $dots = "<ul>";
+                  
+                  $iterator = 0;      
+                  
+                  foreach($media as $media_item){
+                      
+                        if(!empty($media_item)){
+                            
+                              foreach($media_item as $current_image) { 
+                              
+                               //Get File info.
+                                if(!empty($current_image)) {
+                                    
+                                        $file = db_query("Select * from {file_managed} Where fid = :fid",array(
+                                        ':fid' => $current_image['fid']
+                                        ));
+                                    
+                                        //$caption_value = "";
+                                        $classes = array();
+                                
+                                        $large_file_src = "";
+                                    
+                                        foreach ( $file as $file_item ) {
+                                            //  if there is no file then skip ahead
+                                                if ( ! $file_item->filename ) 
+                                                  continue;
+                                                  
+                                             $large_file_src = image_style_url("large", $file_item->uri);
+                                             
+                                             if ( $iterator === 0 ) {
+                                              $classes[] = "active";
+                                              $classes[] = "first";
+                                            } 
+                                            $classes[] = "item-$iterator";
+
+                                            $gallery_info .= '<li class="' . implode(" ", $classes) . '"><a href="'. url("node/".$node_item->nid) .'" ><img src="' . $large_file_src . '" /></a>';
+                                            $gallery_info .= '</li>';
+                                            
+                                            $dots .= '<li class="' . implode(" ", $classes) . '"><a href="javascript:void(0)" ></a>';
+                                            $dots .= '</li>';
+                                            
+                                            $iterator++;
+                                         
+                                        }    
+                                }
+                                    
+                            }
+                                                    
+                            $gallery_info .= "</ul>";
+                            $dots .= "</ul>";
+                            
+                            if($gallery_info == "<ul></ul>") {
+                                $gallery_info = "";   
+                                $dots = "";
+                            }
+                        }
+                    
+                  }
+                  
+                  //Configure UI
+                  
+                  $classes = array();
+                  
+                   if ($node_count === 0 ) {
+                       $classes[] = "first";
+                   }
+                   
+                   if($current_node_id == $node_item->nid){
+                        $classes[] = "active-project";
+                   }
+                    
+                   $classes[] = "project item-$node_count";
+                  
+                  $output_slide_items .= '<li class="' . implode(" ", $classes) . '">';
+                  
+                      
+                          $output_slide_items .= '<div class="single_gallery">';
+                            $output_slide_items .= $gallery_info;
+                          $output_slide_items .= '</div>';
+                          $output_slide_items .= '<a class="art" href="' . $node_url . '"> ';
+                              $output_slide_items .= '<div class="art">';     
+                              $output_slide_items .= '<div class="meta">';
+                              $output_slide_items .= '<h4 class="title">' . $title . '</h4>';
+                              $output_slide_items .= '<div class="byline">' . $byline . '</div>';
+                              $output_slide_items .= '<div class="location">' . $location . '</div>';
+                              $output_slide_items .= '<div class="country">' . $country. '</div>';
+                              $output_slide_items .= '</div>';
+                              $output_slide_items .= '</div>';
+                          $output_slide_items .= '</a>'; 
+                      
+                      
+                  $output_slide_items .= '</li>';
+                  
+                  $output_slide_items_right .= '<li class="' . implode(" ", $classes) . '" >';
+                      $output_slide_items_right .= '<div class="body">';
+                      $output_slide_items_right .= $body;
+                      $output_slide_items_right .= '</div>';
+                      $output_slide_items_right .= '<div class="dots">';
+                      $output_slide_items_right .= $dots;
+                      $output_slide_items_right .= '</div>';
+                  $output_slide_items_right .= '</li>';
+                  
+                  $node_count++;
+             }
+            
+            
+            
+            
+             
+             $output_slide_items .= "</ul>";
+             $output_slide_items_right .= "</ul>";
+             
+             if($output_slide_items == '<ul class="slide_items clearfix" ></ul>') $output_slide_items = '';
+             if($output_slide_items_right == '<ul class="slide_items_right clearfix" ></ul>') $output_slide_items_right = '';
+         
+             
+         }
+        
       
       $page_title = "";
       $page_number = "";
       
-      if($project_type_id == '1'){
+      if($category_id == '1'){
         $page_title = "Selected Prorjects";
         $page_number = "02";  
       }else {
@@ -319,72 +473,11 @@ function blackbeetle_preprocess_page(&$vars) {
         $page_number = "03";    
       }
       
-      
-      $media = $node->field_media;        
-      
-      $gallery_info = "<ul>";
-      $dots = "<ul>";      
-      foreach($media as $media_item){
-          
-        if(!empty($media_item)){
-            
-          foreach($media_item as $current_image)  
-          
-           //Get File info.
-            if(!empty($current_image)) {
-                $file = db_query("Select * from {file_managed} Where fid = :fid",array(
-                ':fid' => $current_image['fid']
-                ));
-                
-                //$caption_value = "";
-                $classes = array();
-            
-                $large_file_src = "";
-                foreach ( $file as $file_item ) {
-                //  if there is no file then skip ahead
-                    if ( ! $file_item->filename ) 
-                      continue;
-                      
-                 $large_file_src = image_style_url("large", $file_item->uri);
-                 
-                 if ( $iterator === 0 ) {
-                  $classes[] = "active";
-                  $classes[] = "first";
-                } 
-                $classes[] = "item-$iterator";
-
-                $gallery_info .= '<li class="' . implode(" ", $classes) . '"><a href="'. url("node/".$node->nid) .'" ><img src="' . $large_file_src . '" /></a>';
-                $gallery_info .= '</li>';
-                
-                $dots .= '<li class="' . implode(" ", $classes) . '"><a href="javascript:void(0)" ></a>';
-                $dots .= '</li>';
-                
-                $iterator++;
-                 
-                }    
-            }    
-        }
-        
-        $gallery_info .= "</ul>";
-        $dots .= "</ul>";
-        
-        if($gallery_info == "<ul></ul>") {
-            $gallery_info = "";   
-            $dots = "";
-        }        
-      }
-      
       $vars['page_title'] = $page_title;
       $vars['page_number'] = $page_number;
       
-      $vars['node_title'] = $node_title;
-      $vars['byline'] = $byline;
-      $vars['location'] = $location;
-      $vars['country'] = $country;
-      $vars['body'] = $body;
-      
-      $vars['media_info'] = $gallery_info;
-      $vars['dots'] = $dots;
+      $vars['slide_items'] = $output_slide_items;
+      $vars['slide_items_right'] = $output_slide_items_right;
       
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }
