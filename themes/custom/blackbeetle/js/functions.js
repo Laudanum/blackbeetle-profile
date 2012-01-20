@@ -75,37 +75,42 @@ jQuery(document).ready(function(){
             ); 
       }
       
-      /* show a particular image of Project or Art*/
-      var _showImageSlide = function(_next_image_slide) {
+      /* show a particular image of Project or Art
+        _next_slide is either null or an object
+      */
+      var _showImageSlide = function(_next_slide) {
           
             var _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li.active');
             if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li:last');
-            if ( ! _next_image_slide ) {
-              _next_image_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items li.active-project .single_gallery ul li:first');
+            if ( ! _next_slide ) {
+              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items li.active-project .single_gallery ul li:first');
             }
-
         //  if the previous slide is still running then don't do anything
-            if (_active_slide.is(':animated') ) {
+            if (_active_slide.is(':animated') || _next_slide.hasClass("active")) {
               return false;
             }
 
-             _active_slide.addClass('last-active');
-            //_updateSlideInfo(_next_slide);
-            _next_image_slide.css({opacity: 0.0}).addClass('active').animate(
+            _active_slide.addClass('last-active');
+            _updateSlideInfo(_next_slide);
+            _next_slide.css({opacity: 0.0}).addClass('active').animate(
               {opacity: 1.0}, 
               transition_speed, 
               function() {
                 _active_slide.removeClass('active last-active');
               }
-            ); 
+            );
+            
+            
       }
       
       
       
-      
+      var _showDot = function() {
+        
+      }
       
       /* show a particular dot, or the next dot if no dot is specified */
-      var _showDot = function(_next_dot) {
+      var OLD_showDot = function(_next_dot) {
           
             var _active_dot = jQuery('li.active-project .dots ul li.active');
             if ( _active_dot.length == 0 ) _active_dot = jQuery('li.active-project .dots ul li:last');
@@ -144,21 +149,16 @@ jQuery(document).ready(function(){
       }
       
       
-    /* 
-      update the title area and set the active class on the current thumbnail 
+      /* 
+        update relevant areas based on an active slide
       */
       var _updateSlideInfo = function(_obj) {
-       // //  update the correct thumbnail
-//            _src = jQuery(_obj).find("img").attr("src");
-//            jQuery(".secondary a.active").removeClass("active");
-//            jQuery(".secondary a[href=" + _src + "]").addClass("active");
-        //  front page - update the header with the title of the work shown
-//            var gallery_info = jQuery(_obj).find('.detail-info').html();
-//            if(gallery_info != ""){
-//              jQuery("#slidecontent").fadeOut(transition_speed, function() {
-//                jQuery('#slidecontent').html(gallery_info).fadeIn(transition_speed);
-//              });
-//            }  
+//  project pages
+        if ( jQuery("body").hasClass("node-type-project") ) {
+//  update the dots
+          _i = jQuery(_obj).index();
+          jQuery("li .dots ul li").removeClass("active").eq(_i+1).addClass("active");
+        }
       }
       
       
@@ -209,34 +209,28 @@ jQuery(document).ready(function(){
                          
               
               
-        }else {
-            jQuery(".arrow").hide();
+        } else {
+          jQuery(".arrow").hide();
         }
         
-        
-        //Checking Dots size   
-        if(jQuery('li .dots ul li').size() > 1) {
-                jQuery('li .dots').show();
-        }else {
-            jQuery('li .dots').hide();
-        }
-                //Clicking Dot
-               jQuery("li .dots ul li a").click(function(event) {
-                    
-                   if(jQuery(this).parent().hasClass('active')) return;
-                   
-                    var className = jQuery(this).parent().attr('class').trim();
-                    if(className != ""){
-                         var last = className.split(" ");
-                         var lastName =  last[last.length-1]; 
-                         
-                         var _active_slide = jQuery('li.active-project .single_gallery ul li.' + lastName );
-                          var _active_dot = jQuery(this).parent();
-                          
-                          _showImageSlide(_active_slide);
-                          _showDot(_active_dot);
-                   }
-              });
+/* do we have enough images in the gallery to display the dot navigation ? 
+  this is currently blank because we've loaded all the projects in to each page
+*/
+//  if( jQuery('.single_gallery ul li').size() > 1 ) {
+  if( jQuery('li.active-project .single_gallery ul li').size() > 1 ) {
+    jQuery('li .dots').show();
+  } else {
+    jQuery('li .dots').hide();
+  }
+  
+
+/* gallery navigation using the dots */
+  jQuery("li .dots ul li").click(function(event) {
+//  get the index of the dot clicked 
+    _i = jQuery(this).index();
+    _next_image_slide = jQuery("li.active-project .single_gallery ul li:eq(" + _i + ")");
+    _showImageSlide(_next_image_slide);
+  });
         
 	
 });
