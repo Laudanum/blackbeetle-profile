@@ -112,7 +112,20 @@ function blackbeetle_preprocess_page(&$vars) {
   $vars['site_name'] = l($vars['site_name'], '<front>');
   $vars['site_slogan'] = $vars['site_slogan'];
   
-  if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2))) {
+// just get the title - its all we need
+  if (
+    arg(0) == 'taxonomy' && 
+    arg(1) == 'term' 
+    && is_numeric(arg(2))
+  ) {
+    $term = taxonomy_term_load(arg(2));
+    $vars['page_title'] = $term->name;
+    $vars['page_number'] = "0" . $term->tid;
+  }
+
+//  use views and nodequeue in favour of hard coding everything 
+  $disable_taxonomy_overrides = true;  
+  if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2)) && ! $disable_taxonomy_overrides ) {
     $tid = arg(2);
     
     //Get Selected Project Info

@@ -1,3 +1,8 @@
+<!-- template page taxonomy -->
+<?php 
+  kpr($page);
+  $body = $page['content']['system_main']['main']['#markup'];
+?>
 <div class="container_12">
             <div id="header">
                 <div class="title">
