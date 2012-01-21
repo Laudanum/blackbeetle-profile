@@ -313,6 +313,16 @@ byline {
 	background-position: 0 -28px;
 }
 
+.arrows .arrow.arrow-right a:hover {
+	background-position: -35px -28px;
+}
+
+.arrows .arrow.arrow-left a:hover {
+	background-position: -35px 0;
+}
+
+
+
 /*Gallery Area*/
 .gallery {
     
