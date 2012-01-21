@@ -200,6 +200,7 @@ byline {
 #footer {
 	position: relative;
 	padding-top: 32px;
+	text-transform : lowercase;
 }
 
 #footer p {
