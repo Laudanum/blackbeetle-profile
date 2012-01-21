@@ -97,6 +97,7 @@ body.page-taxonomy-term .col {
 .title h1 {
 	position: absolute;
 	text-indent: -9999px;
+	display : none;
 }
 .title .num {
 	margin-bottom: 0;
@@ -112,6 +113,11 @@ body.page-taxonomy-term .col {
 	font-size: 16px;
 	color: #717073;
 }
+
+.title a:hover .num, .title a:hover h2 {
+	color: #d2232a;
+}
+
 #header .nav {
 	position: absolute;
 	bottom: 10px;
@@ -300,6 +306,7 @@ byline {
 	display: block;
 	width: 35px;
 	height: 28px;
+	text-indent : -9999px;
 }
 .arrows .arrow.arrow-left {
 	left: -45px;

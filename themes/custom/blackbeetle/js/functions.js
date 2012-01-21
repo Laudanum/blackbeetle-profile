@@ -25,9 +25,14 @@ jQuery(document).ready(function(){
      });
      
      
-    /* show a particular slide, or the next slide if no slide is specified */
+    /* show a particular slide, or the next slide if no slide is specified   
+    */
       var _showSlide = function(_next_slide) {
-          
+/*
+      this is used for the navigation between projects which is broken and shouldn't be used
+*/
+        return false;
+//          alert(20)
            var _active_slide = jQuery('.slide_items li.active-project');
             if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items li.project:last');
             if ( ! _next_slide ) {
@@ -52,6 +57,9 @@ jQuery(document).ready(function(){
       
       /* show a particular content slide, or the next slide if no slide is specified */
       var _showContentSlide = function(_next_slide) {
+        /* dont use - it was for next/previous project - its broken and shouldn't be used */
+        return false;
+//        alert(10)
           
             var _active_slide = jQuery('.slide_items_right li.active-project');
             if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items_right li.project:last');
@@ -185,8 +193,9 @@ jQuery(document).ready(function(){
             jQuery(".arrow").show();
 
         //  listen for clicks on the navigation arrows
+/*
+  looks like its for next previous navigation - broken - don't use
               jQuery(".arrows .arrow a").click(function(event) {
-                  
                 if ( jQuery(this).hasClass("next") ) {
                  // _stopSlideshow();
                   _showSlide();
@@ -205,6 +214,7 @@ jQuery(document).ready(function(){
                   _showContentSlide(_previous_slide);
                 }
               });
+*/
               
                          
               
