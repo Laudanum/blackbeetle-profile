@@ -1,4 +1,3 @@
-<!-- template views view fields taxonomy term nodequeue -->
 <?php
 /**
  * @file views-view-fields.tpl.php
@@ -22,16 +21,40 @@
  * - $row: The raw result object from the query, with all data it fetched.
  *
  * @ingroup views_templates
+*
+ *      $output .= '<li class="col col_01">';
+  *      $output .= '<a class="art" href="' . $node_url . '">';
+   *     $output .= '<div class="img">';
+    *    $output .= $image_info;
+ *       $output .= "</div>";
+     *   $output .= '<div class="meta"><h4 class="title">' . $title . '</h4><div class="byline" >' . $byline . '</div>';
+      *  $output .= '<div class="location">'.$location . '</div><div class="country">' . $country ;
+       * $output .= '</div></div></a></li>';
+*
+*
  */
+//  kpr($fields['field_media']);
 ?>
-  
-<?php foreach ($fields as $id => $field): ?>
-  <?php if (!empty($field->separator)): ?>
-    <?php print $field->separator; ?>
-  <?php endif; ?>
 
-  <?php print $field->wrapper_prefix; ?>
-    <?php print $field->label_html; ?>
-    <?php print $field->content; ?>
-  <?php print $field->wrapper_suffix; ?>
-<?php endforeach; ?>
+<!-- template views view fields taxonomy term nodequeue -->
+    <a class="art" href="' . $node_url . '">
+      <div class="img">
+        <?=$fields['field_media']->content?>
+      </div>
+      <div class="meta">
+        <h4 class="title"><?=$fields['title']->content ?></h4>
+
+        <?php if ( ! empty($fields['field_byline']->content) ):?>
+        <div class="byline" ><?=$fields['field_byline']->content ?></div>
+        <?php endif; ?>
+
+        <?php if ( ! empty($fields['field_location']->content) ):?>
+        <div class="location"><?=$fields['field_location']->content ?></div>
+        <?php endif; ?>
+
+        <?php if ( ! empty($fields['field_content']->content) ):?>
+        <div class="country"><?=$fields['field_content']->content ?></div>
+        <?php endif; ?>
+      </div>
+    </a>
+<!-- end views view fields taxonomy term nodequeue -->
