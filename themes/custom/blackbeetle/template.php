@@ -121,6 +121,7 @@ function blackbeetle_preprocess_page(&$vars) {
     $term = taxonomy_term_load(arg(2));
     $vars['page_title'] = $term->name;
     $vars['page_number'] = "0" . $term->tid;
+    
   }
 
 //  use views and nodequeue in favour of hard coding everything 
@@ -512,13 +513,66 @@ function blackbeetle_preprocess_page(&$vars) {
             $tid = $term_data->id;
             $taxonomy_name = $term_data->name;
         }
-        
-         
+
         $page_title = $taxonomy_name;
-        $page_number = "0" . ($tid +1);    
+        $page_number = "0" . ($tid +1);
           
         $vars['page_title'] = $page_title;
         $vars['page_number'] = $page_number;
+        $vars['page_url'] = url("taxonomy/term/" . $tid);
+        
+//  next / previous pages
+//  get the queue id ( its the smartqueue that matches our taxonomy )
+        $queues = nodequeue_load_queue_by_name('projects'); //  generic, not the term selected projects
+//  an array of subqueues our node is in -- we can't know which if its in multiple queues
+        $subqueues = nodequeue_get_subqueues_by_node(array($queues), $vars['node']);
+//  get the nodes in the queue
+        $subqueue = array_shift($subqueues);
+        $subqueue_nodes = nodequeue_load_nodes($subqueue->sqid);
+
+        foreach ( $subqueue_nodes as $position => $node) {
+          if ( $node->nid == $vars['node']->nid ) {
+            $my_position = $position;
+            break;
+          }
+        }
+        
+//  determine the next/previous nodes
+        if ( $my_position ) {
+          
+          $wrap = true;
+          $next_position = $my_position + 1;
+          if ( $next_position > count($subqueue_nodes)  && $wrap )
+            $next_position = 0;
+          $prev_position = $my_position - 1;
+          if ( $my_position < 0 && $wrap )
+            $my_position = count($subqueue_nodes) - 1;
+          
+          if ( array_key_exists(($next_position), $subqueue_nodes) ) {
+            $vars['page_next'] = l(
+              t("Next") . " " . t(strtolower($subqueue->title)),
+              "node/" . $subqueue_nodes[$next_position]->nid,
+              array(
+                "attributes"=>array(
+                  "title"=>$subqueue_nodes[$next_position]->title,
+                  "class"=>array("next"),
+                )
+              )
+            );
+          }
+          if ( array_key_exists(($prev_position), $subqueue_nodes) ) {
+            $vars['page_previous'] = l(
+              t("Previous") . " " . t(strtolower($subqueue->title)),
+              "node/" . $subqueue_nodes[$prev_position]->nid, 
+              array(
+                "attributes"=>array(
+                  "title"=>$subqueue_nodes[$prev_position]->title,
+                  "class"=>array("previous"),
+                )
+              )
+            );
+          }
+        }
       
       $vars['slide_items'] = $output_slide_items;
       $vars['slide_items_right'] = $output_slide_items_right;

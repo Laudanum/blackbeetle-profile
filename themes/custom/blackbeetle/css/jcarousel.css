@@ -67,6 +67,9 @@
     right: -45px;
     cursor: pointer;
 }
+.gallery .jcarousel-next-horizontal:hover {
+    background-position: -35px -28px;
+}
 
 .gallery .jcarousel-direction-rtl .jcarousel-next-horizontal {
     
@@ -99,7 +102,9 @@
     left: -45px;
     cursor: pointer;
 }
-
+.gallery .jcarousel-prev-horizontal:hover {
+    background-position: -35px 0;
+}
 .gallery .jcarousel-direction-rtl .jcarousel-prev-horizontal {
     
 }
