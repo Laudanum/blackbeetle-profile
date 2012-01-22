@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Blackbeetle projects feature.
+ */
+
+include_once('blackbeetle_projects.features.inc');
