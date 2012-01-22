@@ -612,6 +612,37 @@ function blackbeetle_preprocess_block(&$vars) {
   }
 }
 
+/*
+function blackbeetle_preprocess_views_view(&$vars) {
+}
+
+function blackbeetle_preprocess_views_view_list(&$vars) {
+}
+
+function blackbeetle_preprocess_views_view_unformatted(&$vars) {
+}
+
+function blackbeetle_preprocess_views_view_fields_taxonomy_term_nodequeue(&$vars) {
+}
+
+function blackbeetle_preprocess_views_view_field(&$vars) {
+}
+*/
+
+/*
+  Implementation of hook_preprocess_views_view_fields
+  Pull out an image style url to our background image in a projects taxonomy view.
+*/
+function blackbeetle_preprocess_views_view_fields(&$vars) {
+  if ( $vars['view']->name == "taxonomy_term_nodequeue" ) {
+    $row_index = $vars['view']->row_index;
+    $file_uri = ($vars['view']->result[$row_index]->field_field_media[0]['rendered']['file']['#path']);
+//      $image_style = "thumbnail";
+    $image_style = "vertical_panel";
+    $vars['field_media_url'] = image_style_url($image_style, $file_uri);
+  }
+}
+
 /**
  * Implementation of preprocess_node().
  */

@@ -33,7 +33,7 @@
 *
 *
  */
-//  kpr($fields['view_node']);
+//  kpr($fields['field_byline']);
 //  $nid = $fields['view_node']->raw;
   $node_url = url("node/" . $fields['view_node']->raw);
 ?>
@@ -41,7 +41,7 @@
 <!-- template views view fields taxonomy term nodequeue -->
     <a class="art" href="<?=$node_url?>">
       <div class="img">
-        <?=$fields['field_media']->content?>
+        <img alt="" src="<?=$field_media_url?>" />
       </div>
       <div class="meta">
         <h4 class="title"><?=$fields['title']->content ?></h4>
