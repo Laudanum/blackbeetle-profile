@@ -182,8 +182,8 @@ body.page-taxonomy-term .col {
 	font-size: 10px;
 }
 
-#body .col:hover .meta,
-#body .col:hover .meta h4.title a {
+body.page-taxonomy-term #body .col:hover .meta,
+body.page-taxonomy-term #body .col:hover .meta h4.title a {
   color : #d2232a;
 }
 #body .col .meta h4.title {
@@ -271,7 +271,8 @@ byline {
 	position: relative;
 	float: right;
 	width: 310px;
-	height: 430px;
+	height: 410px;
+  overflow-y: auto;
 }
 .art-text .body {
 	position: absolute;
@@ -281,36 +282,66 @@ byline {
     /*overflow:scroll;
     height: 340px;*/
 }
+ul.gallery-navigation, 
 .art-text .dots {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 }
+ul.gallery-navigation, 
 .art-text .dots ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
+ul.gallery-navigation li, 
 .art-text .dots ul li {
 	float: left;
 	margin-left: 10px;
 }
+ul.gallery-navigation li:first-child, 
+ul.gallery-navigation li.first, 
 .art-text .dots ul li:first-child {
 	margin-left: 0;
 }
+ul.gallery-navigation li a, 
 .art-text .dots ul li a {
 	background: url("../images/dots.png") no-repeat 0 0 scroll transparent;
 	display: block;
 	width: 10px;
 	height: 10px;
+	text-indent : -9999px;
 }
+#body .tabs a,
+#body .arrows a,
+#body ul.gallery-navigation li a {
+	border-bottom : none;
+	padding-bottom : 0;
+}
+ul.gallery-navigation li:hover a, 
 .art-text .dots ul li:hover a {
 	background-position: 0 -20px;
 }
+ul.gallery-navigation li.active a, 
 .art-text .dots ul li.active a {
 	background-position: 0 -10px;
 }
 
+div.gallery-navigation {
+  position : absolute;
+  width: 310px;
+  margin-left: 650px;
+  right : 0;
+  top: 430px;
+}
+
+body.logged-in div.gallery-navigation {
+  top: 460px;
+}
+.gallery-container {
+  width : 630px;
+  height: 430px;
+}
 .arrows {}
 .arrows .arrow {
 	position: absolute;

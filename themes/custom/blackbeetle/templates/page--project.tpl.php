@@ -19,17 +19,14 @@
                     <div class="arrow arrow-left"><?=$page_previous?></div>
                     <div class="arrow arrow-right"><?=$page_next?></div>
                 </div>  
-                <div class="col full_image">
-                    <?php print $slide_items; ?>  
-                </div>
-                <div class="col art-text">
-                    <?php if ($tabs = render($tabs)): ?>
-                            <div class="tabs"><?php print $tabs; ?></div>
-                    <?php endif; ?><div class="clear">&nbsp;</div>
-                    
-                    <?php print $slide_items_right; ?>
-                    
-                </div>
+
+                <?php if ($tabs = render($tabs)): ?>
+                  <div class="tabs"><?php print $tabs; ?></div>
+                  <div class="clear">&nbsp;</div>
+                <?php endif; ?>
+
+                <?php print render($page['content']) ?>
+                
                 <div class="clear">&nbsp;</div>
             </div>
             <div id="footer">

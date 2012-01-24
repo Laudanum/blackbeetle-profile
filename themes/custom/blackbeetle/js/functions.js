@@ -88,10 +88,10 @@ jQuery(document).ready(function(){
       */
       var _showImageSlide = function(_next_slide) {
           
-            var _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li.active');
-            if ( _active_slide.length == 0 ) _active_slide = jQuery('.slide_items li.active-project .single_gallery ul li:last');
+            var _active_slide = jQuery('.single_gallery ul li.active');
+            if ( _active_slide.length == 0 ) _active_slide = jQuery('.single_gallery ul li:last');
             if ( ! _next_slide ) {
-              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.slide_items li.active-project .single_gallery ul li:first');
+              _next_slide =  _active_slide.next().length ? _active_slide.next() : jQuery('.single_gallery ul li:first');
             }
         //  if the previous slide is still running then don't do anything
             if (_active_slide.is(':animated') || _next_slide.hasClass("active")) {
@@ -165,7 +165,7 @@ jQuery(document).ready(function(){
         if ( jQuery("body").hasClass("node-type-project") ) {
 //  update the dots
           _i = jQuery(_obj).index();
-          jQuery("li .dots ul li").removeClass("active").eq(_i+1).addClass("active");
+          jQuery(".gallery-navigation li").removeClass("active").eq(_i).addClass("active");
         }
       }
       
@@ -186,60 +186,31 @@ jQuery(document).ready(function(){
 
           
     /* if we have a gallery set up a slideshow and run it */
-        if(jQuery('.slide_items li').size() > 1) {
-          //  _startSlideshow();
-
+      if ( jQuery("body").hasClass("page-taxonomy-term") ) {
+        if(jQuery('body.page-taxonomy-term .slide_items li').size() > 1) {
         //  create some buttons if we don't have them already
             jQuery(".arrow").show();
-
-        //  listen for clicks on the navigation arrows
-/*
-  looks like its for next previous navigation - broken - don't use
-              jQuery(".arrows .arrow a").click(function(event) {
-                if ( jQuery(this).hasClass("next") ) {
-                 // _stopSlideshow();
-                  _showSlide();
-                  _showContentSlide();
-                 
-                } else if ( jQuery(this).hasClass("previous") ) {
-                 // _stopSlideshow();
-                  var _active_slide = jQuery('.slide_items li.active-project');
-                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.slide_items li.project:last');
-                  
-                  _showSlide(_previous_slide);
-                  
-                  _active_slide = jQuery('.slide_items_right li.active-project');
-                  _previous_slide = _active_slide.prev().length ? _active_slide.prev() : jQuery('.slide_items_right li.project:last');
-                  
-                  _showContentSlide(_previous_slide);
-                }
-              });
-*/
-              
-                         
-              
-              
-        } else {
-          jQuery(".arrow").hide();
         }
+      }
         
 /* do we have enough images in the gallery to display the dot navigation ? 
   this is currently blank because we've loaded all the projects in to each page
 */
 //  if( jQuery('.single_gallery ul li').size() > 1 ) {
-  if( jQuery('li.active-project .single_gallery ul li').size() > 1 ) {
-    jQuery('li .dots').show();
+  if( jQuery('.single_gallery ul li').size() > 1 ) {
+    jQuery('.gallery-navigation').show();
   } else {
-    jQuery('li .dots').hide();
+    jQuery('.gallery-navigation').hide();
   }
   
 
 /* gallery navigation using the dots */
-  jQuery("li .dots ul li").click(function(event) {
+  jQuery(".gallery-navigation li").click(function(event) {
 //  get the index of the dot clicked 
     _i = jQuery(this).index();
-    _next_image_slide = jQuery("li.active-project .single_gallery ul li:eq(" + _i + ")");
-    _showImageSlide(_next_image_slide);
+    _next_image_slide = jQuery(".single_gallery ul li:eq(" + _i + ")");
+    if (_next_image_slide.size() )
+      _showImageSlide(_next_image_slide);
   });
         
 	
