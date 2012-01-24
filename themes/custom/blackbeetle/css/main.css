@@ -175,20 +175,28 @@ body.page-taxonomy-term .col {
 }
 
 #body .col .art {}
-#body .col .art .meta {
+#body .col  .meta {
 	padding: 10px 0 0 10px;
 	margin-bottom: 0;
 	line-height: 12px;
 	font-size: 10px;
 }
 
-#body .col .art .meta h4.title {
+#body .col:hover .meta,
+#body .col:hover .meta h4.title a {
+  color : #d2232a;
+}
+#body .col .meta h4.title {
 	margin-bottom: 0;
 	line-height: 14px;
 	font-weight: bold;
 	font-size: 12px;
 }
-#body .col .art .meta .byline {
+#body a.art, #body h4.title a {
+	border-bottom : none;
+	text-decoration : none;
+}
+#body .col .meta .byline {
     font-style: italic;
     line-height: 14px;
     font-weight: bold;
