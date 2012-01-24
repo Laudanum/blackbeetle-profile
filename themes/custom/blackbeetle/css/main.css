@@ -11,8 +11,15 @@ a	{
 	color: #717073;
 	text-decoration: none;
 }
+#body a {
+	border-bottom : 1px solid #d1d0d3;
+	padding-bottom : 1px;
+}
 a:hover {
 	color: #d2232a;
+}
+#body a:hover {
+	border-bottom : 1px solid #e2434a;
 }
 
 /* Columns */
