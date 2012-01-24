@@ -80,7 +80,7 @@ function _blackbeetle_get_front_sections() {
       $image = current($nodes)->field_image;
       $image_uri = $image['und'][0]['uri'];
       
-      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      $thumb_file_src = image_style_url("vertical_panel", $image_uri);
       
       $image_info .= '<img src="' . $thumb_file_src . '" alt="" />';
       
@@ -187,7 +187,7 @@ function _blackbeetle_get_front_sections() {
                 if ( ! $file_item->filename ) 
                   continue;
                   
-                $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
+                $thumb_file_src = image_style_url("vertical_panel", $file_item->uri);
                 
             }    
         }    
@@ -301,7 +301,7 @@ function _blackbeetle_get_front_sections() {
                 if ( ! $file_item->filename ) 
                   continue;
                   
-                $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
+                $thumb_file_src = image_style_url("vertical_panel", $file_item->uri);
                 
             }    
         }    
@@ -356,7 +356,7 @@ function _blackbeetle_get_front_sections() {
       $image = current($nodes)->field_image;
       $image_uri = $image['und'][0]['uri'];
       
-      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      $thumb_file_src = image_style_url("vertical_panel", $image_uri);
       
       $image_info .= '<img src="' . $thumb_file_src . '" alt="" />';
       

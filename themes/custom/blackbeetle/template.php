@@ -145,7 +145,7 @@ function blackbeetle_preprocess_page(&$vars) {
       $image = $node->field_image;
       $image_uri = $image['und'][0]['uri'];
       
-      $thumb_file_src = image_style_url("thumbnail", $image_uri);
+      $thumb_file_src = image_style_url("vertical_panel", $image_uri);
       
       $image_info .= '<img src="' . $thumb_file_src . '" title="" />';
      
