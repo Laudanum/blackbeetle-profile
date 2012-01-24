@@ -510,3 +510,7 @@ body.logged-in div.gallery-navigation {
 
 
 
+#cboxLoadedContent {
+  background-color : transparent ! important;
+}
+}

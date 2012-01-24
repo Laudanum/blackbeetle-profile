@@ -56,7 +56,7 @@
         $image_path = $item['file']['#path'];
         $image_path = image_style_url("large", $image_path);
 
-        print l($image_element, $image_path, array('html'=>TRUE));
+        print l($image_element, $image_path, array('html'=>TRUE, 'attributes'=>array('class'=>array('colorbox-load'))));
       ?>
       </li>
     <?php endforeach; ?>
