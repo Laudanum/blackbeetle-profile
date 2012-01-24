@@ -54,8 +54,8 @@
         <div class="location"><?=$fields['field_location']->content ?></div>
         <?php endif; ?>
 
-        <?php if ( ! empty($fields['field_content']->content) ):?>
-        <div class="country"><?=$fields['field_content']->content ?></div>
+        <?php if ( ! empty($fields['field_country']->content) ):?>
+        <div class="country"><?=$fields['field_country']->content ?></div>
         <?php endif; ?>
       </div>
     </a>

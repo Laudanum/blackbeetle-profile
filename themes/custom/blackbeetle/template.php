@@ -124,157 +124,7 @@ function blackbeetle_preprocess_page(&$vars) {
     
   }
 
-//  use views and nodequeue in favour of hard coding everything 
-  $disable_taxonomy_overrides = true;  
-  if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2)) && ! $disable_taxonomy_overrides ) {
-    $tid = arg(2);
-    
-    //Get Selected Project Info
-    
-    $node_url = "";
-    $title = "";
-    $description = "";
-    
-    $byline = "";
-    $location = "";
-    $country = "";
-    
-    
-    $image = "";
-    $image_uri = "";
-    $thumb_file_src = "";
-    $image_info = "";
-    
-    //Taxonomy Data
-    $pdata = db_query("SELECT d.tid as id, d.name FROM {taxonomy_vocabulary} v inner join {taxonomy_term_data} d on v.vid = d.vid WHERE d.tid = :tid order by name ", array(
-          ':tid' => $tid,
-          ));
-          
-    $taxonomy_name = "";
-          
-    foreach($pdata as $term_data){
-        $tid = $term_data->id;
-        $taxonomy_name = $term_data->name;
-    }
-    
-     
-    $page_title = $taxonomy_name;
-    $page_number = "0" . ($tid +1);    
-     
-      
-    $vars['page_title'] = $page_title;
-    $vars['page_number'] = $page_number;
-    
-    
-    
-/*
-  get project ID's (nids) related to this page's term
-  @TODO this is probably unsorted–we need to interact with nodequeue
-*/
-    $result = db_query("
-      SELECT node.nid AS nid
-      FROM {node} node
-      INNER JOIN {field_data_field_category} field_data_field_category ON node.nid = field_data_field_category.entity_id 
-      AND (
-        field_data_field_category.entity_type = 'node' 
-        AND field_data_field_category.deleted = 0
-      )
-      WHERE node.status = 1
-      And node.promote = 1
-      AND node.type = 'project'
-      AND field_data_field_category.field_category_tid = :tid
-      ", array(
-        ':tid' => $tid,
-      )
-    );
-    
-    //  flatten the nids into an array
-    $nids = array();
-    foreach ($result as $obj) {
-      $nids[] = $obj->nid;
-    }    
-
-    //  load all the nodes now
-    $nodes = node_load_multiple($nids);
-    
-    if (!empty($nodes)) {
-         
-      $output = '<ul class="slide_items clearfix" >';
-
-      foreach($nodes as $current_node){
-   
-        $node_url = url("node/".$current_node->nid);
-        $title = $current_node->title;
-
-        $byline = "";
-        foreach($current_node->field_byline as $byline_item){
-          $byline = $byline_item[0]['value'];
-        }
-
-
-        $location = "";
-        foreach($current_node->field_location as $location_item){
-          $location = $location_item[0]['value'];
-        }
-
-        $country = "";
-        foreach($current_node->field_country as $country_item){
-          $country = $country_item[0]['value'];
-        }
-
-        //  get the first media asset
-        $media = $current_node->field_media;        
-        $first_image = array();
-        foreach($media as $value){
-          if(!empty($value)){
-            $first_image = $value[0];  
-            break;
-          }
-        }
-
-        //Get File info.
-          if(!empty($first_image)) {
-              $file = db_query("Select * from {file_managed} Where fid = :fid",array(
-              ':fid' => $first_image['fid']
-              ));
-    
-              $thumb_file_src = "";
-              foreach ( $file as $file_item ) {
-              //  if there is no file then skip ahead
-                  if ( ! $file_item->filename ) 
-                    continue;
-          
-                  $thumb_file_src = image_style_url("thumbnail", $file_item->uri);
-                  break;
-        
-              }    
-          }    
-
-        $image_info = "";
-        $image_info = '<img src="' . $thumb_file_src . '" alt="" />';
-
-
-        $output .= '<li class="col col_01">';
-        $output .= '<a class="art" href="' . $node_url . '">';
-        $output .= '<div class="img">';
-        $output .= $image_info;
-        $output .= "</div>";
-        $output .= '<div class="meta"><h4 class="title">' . $title . '</h4><div class="byline" >' . $byline . '</div>';
-        $output .= '<div class="location">'.$location . '</div><div class="country">' . $country ;
-        $output .= '</div></div></a></li>';
-   
-      }
-
-      $output .= "</ul>";
-
-      if($output == '<ul class="slide_items clearfix" ></ul>') $output = '';
-
-    }
-    
-    $vars['body'] =  $output;
-    //$vars['theme_hook_suggestions'][] = 'page__taxonomy__term'. str_replace('_', '--', $tid);
-  }
-  
+//  @todo rework these to use theme layer  
   if (isset($vars['node']) && ($vars['node']->type == 'page')) {
       
       global $base_url;
@@ -306,7 +156,8 @@ function blackbeetle_preprocess_page(&$vars) {
       
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }
-  
+
+//  for project nodes get term (for header) and previous/next links
   if (isset($vars['node']) && ($vars['node']->type == 'project')) {
         
       $current_node = $vars['node'];
@@ -392,9 +243,6 @@ function blackbeetle_preprocess_page(&$vars) {
           }
         }
 
-//  we need to turn off all these and stop them from buiding.
-//      $vars['slide_items'] = $output_slide_items;
-//      $vars['slide_items_right'] = $output_slide_items_right;
       
       $vars['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $vars['node']->type);
   }
