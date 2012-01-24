@@ -509,8 +509,11 @@ body.logged-in div.gallery-navigation {
 }
 
 
+body.node-type-project .field-name-body {
+  bottom :0;
+  position : absolute;
+}
 
 #cboxLoadedContent {
   background-color : transparent ! important;
-}
 }
