@@ -245,9 +245,17 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 #footer .footer_body .region-footer-left {
    float: left;
 }
+#footer .footer_body .region-footer-left .block.clearfix {
+  float: left;
+  margin-right: 1em;
+}
 
 #footer .footer_body .region-footer-right {
     float: right;
+}
+#footer .footer_body .region-footer-right .block.clearfix {
+  float: right;
+  margin-left: 1em;
 }
 #footer .footer_body .site-info {
 	float: right;
