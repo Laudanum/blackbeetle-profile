@@ -144,7 +144,8 @@ body.page-taxonomy-term .col {
 	margin-bottom: 0;
 }
 #body .col .img .text {
-	background: rgba(255, 255, 255, 0.5);
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.8);
 	display: none;
 	position: absolute;
 	top: 50%;
