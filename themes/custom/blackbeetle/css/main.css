@@ -543,3 +543,17 @@ a.external:after {
    font-size : 1.4em;
    text-decoration : none;
 }
+
+a.facebook {
+  text-indent : -9999px;
+  background-image : url(../libs/images/social-icons.png);
+  background-repeat : no-repeat;
+  display : block;
+  width : 16px;
+  height : 16px;
+  background-position : 0 -16px;
+}
+
+a.facebook:hover {
+  background-position : 0 0;
+}
