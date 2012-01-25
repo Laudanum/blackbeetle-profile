@@ -41,10 +41,3 @@ stylesheets[screen][] = drupal.css
 scripts[] = js/functions.js
 scripts[] = js/jquery.jcarousel.min.js
 scripts[] = js/jquery.timers-1.2.js
-
-; Information added by drupal.org packaging script on 2011-09-21
-version = "7.x-3.0-beta4"
-core = "7.x"
-project = "tao"
-datestamp = "1316616407"
-
