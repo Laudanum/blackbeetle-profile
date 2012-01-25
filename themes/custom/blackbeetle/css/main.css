@@ -144,7 +144,8 @@ body.page-taxonomy-term .col {
 	margin-bottom: 0;
 }
 #body .col .img .text {
-	background: rgba(255, 255, 255, 0.5);
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.8);
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -196,6 +197,9 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 	border-bottom : none;
 	text-decoration : none;
 }
+.byline {
+	font-style: italic;
+}
 #body .col .meta .byline {
     font-style: italic;
     line-height: 14px;
@@ -213,9 +217,6 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 	text-align: justify;
 }
 
-byline {
-	font-style: italic;
-}
 
 /* Footer */
 #footer {
@@ -244,9 +245,17 @@ byline {
 #footer .footer_body .region-footer-left {
    float: left;
 }
+#footer .footer_body .region-footer-left .block.clearfix {
+  float: left;
+  margin-right: 1em;
+}
 
 #footer .footer_body .region-footer-right {
     float: right;
+}
+#footer .footer_body .region-footer-right .block.clearfix {
+  float: right;
+  margin-left: 1em;
 }
 #footer .footer_body .site-info {
 	float: right;
@@ -273,6 +282,7 @@ byline {
 	width: 310px;
 	height: 410px;
   overflow-y: auto;
+  text-align : justify;
 }
 .art-text .body {
 	position: absolute;
@@ -509,11 +519,27 @@ body.logged-in div.gallery-navigation {
 }
 
 
-body.node-type-project .field-name-body {
+.bottom-align {
   bottom :0;
   position : absolute;
 }
 
+.bottom-align p:last-child {
+  margin-bottom : 0;
+}
+
+.bottom-align .field {
+  margin-top : 1em;
+}
+.bottom-align .field:first-child {
+  margin-top : 0;
+}
+
 #cboxLoadedContent {
   background-color : transparent ! important;
+}
+a.external:after {
+   content : " \00BB";
+   font-size : 1.4em;
+   text-decoration : none;
 }
