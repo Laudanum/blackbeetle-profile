@@ -165,27 +165,28 @@ body.page-taxonomy-term .col {
 #body .col .img .text .body {
 	padding: 10px;
 }
-#body .col .link .title {
+#body .col .link .title,
+#body .col .meta {
+  margin-top : 9px;
 	padding-left: 9px;
-	border-right: 1px solid #e6e7e8;
-	text-transform : lowercase
-}
-#body .col:first-child .link .title {
 	border-left: 1px solid #e6e7e8;
+	height : 70px;
+	line-height: 12px;
+}
+#body .col .link .title {
+	text-transform : lowercase;
+}
+#body .col .meta {
+	font-size: 10px;
+}
+
+#body .col:first-child .link .title {
 }
 #body .col .link:hover .title .num {
 	color: #d2232a;
 }
 #body .col .link:hover .title h2 {
 	color: #d2232a;
-}
-
-#body .col .art {}
-#body .col  .meta {
-	padding: 10px 0 0 10px;
-	margin-bottom: 0;
-	line-height: 12px;
-	font-size: 10px;
 }
 
 body.page-taxonomy-term #body .col:hover .meta,
@@ -394,7 +395,7 @@ body.logged-in div.gallery-navigation {
 
 /*Gallery Area*/
 .gallery {
-    
+  height : 509px;
 }
 .gallery ul {
     list-style: none;
