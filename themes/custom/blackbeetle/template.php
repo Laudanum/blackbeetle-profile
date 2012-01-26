@@ -112,6 +112,58 @@ function blackbeetle_preprocess_page(&$vars) {
   $vars['site_name'] = l($vars['site_name'], '<front>');
   $vars['site_slogan'] = $vars['site_slogan'];
   
+  
+//  front page - image based main menu
+  if (  $vars['is_front'] ) {
+  //  get the primary menu top level paths
+    $menu_name = "main-menu";
+    $links = menu_load_links($menu_name);
+
+    if ( count($links) ) {
+      $sections = array();
+      $i = 0;
+      foreach ( $links as $link_item ) {
+  //  only top level links and not the home page and only those whose router path ends with %
+        $router_path = $link_item['router_path'];
+        if ( $link_item['depth'] == 1 && $link_item['link_path'] != "<front>" && $router_path[strlen($router_path)-1] == '%' ) {
+  //  menus duplicate when they are translated (tax/term/1 >> project) - but weight stays the same so unique on that.
+          if ( ! array_key_exists($link_item['weight'], $sections) ) {
+            $i++;
+            $key = $link_item['weight'];
+  //  figure out if its a node or not
+            $link_parts = explode("/", $link_item['link_path']);
+            $entity_id = array_pop($link_parts);
+            $entity_type = implode("_", $link_parts);
+            $entity_load_func = $entity_type . "_load";
+            $entity = $entity_load_func($entity_id);
+  
+            if ( array_key_exists('und', $entity->field_media_file) ) {
+              foreach ( $entity->field_media_file['und'] as &$file ) {
+                if ( $file['type'] == 'image' ) {
+                  $file['url'] = image_style_url("vertical_panel", $file['uri']);
+                }
+              }
+            }
+          
+  //  get the title and image relating to that path, be it page or term
+            $sections[$key] = array(
+              'title' => $link_item['link_title'],
+              'path' => $link_item['link_path'],
+              'delta' => $i,
+              'field_description' => $entity->field_description ? $entity->field_description['und'][0]['safe_value'] : $entity->description,
+              'field_media_file'  => array()
+            );
+            if ( array_key_exists('und', $entity->field_media_file) ) {
+              $sections[$key]['field_media_file'] = $entity->field_media_file['und'];
+            }
+          }
+        }
+  //  return them as `sections` rather than HTML
+      }
+      $vars['sections'] = $sections;
+    }
+  }
+  
 // just get the title - its all we need
   if (
     arg(0) == 'taxonomy' && 
@@ -142,7 +194,7 @@ function blackbeetle_preprocess_page(&$vars) {
         $body .= $node->body[$key][0]['safe_value'];
       }
       
-      $image = $node->field_image;
+      $image = $node->field_media_file;
       $image_uri = $image['und'][0]['uri'];
       
       $thumb_file_src = image_style_url("vertical_panel", $image_uri);

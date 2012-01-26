@@ -1,4 +1,4 @@
-<!-- template block murray get-slideshow -->
+<!-- template block blackbeetle get-front-sections -->
 <?php
 // $Id: gigya-login-block.tpl.php,v 1.1 2010/08/04 14:52:05 add1sun Exp $
 
@@ -13,5 +13,6 @@
  * @see template_preprocess_gigya_login_block()
  */
 ?>
- 
+
+
 <?php print $content; ?>
