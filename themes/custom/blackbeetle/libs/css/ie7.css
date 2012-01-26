@@ -1,0 +1,5 @@
+#body .col .img .text {
+  -ms-filter:"alpha(opacity=80)";
+  filter:alpha(opacity=80); 
+  color : #000000;
+}

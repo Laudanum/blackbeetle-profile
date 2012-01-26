@@ -38,6 +38,8 @@ stylesheets[all][] = css/jcarousel.css
 
 stylesheets[screen][] = drupal.css
 
+stylesheets-conditional[lt IE 9][all][] = libs/css/ie7.css
+
 scripts[] = js/functions.js
 scripts[] = js/jquery.jcarousel.min.js
 scripts[] = js/jquery.timers-1.2.js
