@@ -139,6 +139,9 @@ body.page-taxonomy-term .col {
 }
 #body .col .img {
 	position: relative;
+	width : 240px;
+	height : 430px;
+	background-color : #EFEFEF;
 }
 #body .col .img img {
 	display: block;
@@ -164,10 +167,11 @@ body.page-taxonomy-term .col {
 }
 #body .col .link .title {
 	padding-left: 9px;
-	border-right: 1px solid #e6e7e8
+	border-right: 1px solid #e6e7e8;
+	text-transform : lowercase
 }
 #body .col:first-child .link .title {
-	border-left: 1px solid #e6e7e8
+	border-left: 1px solid #e6e7e8;
 }
 #body .col .link:hover .title .num {
 	color: #d2232a;
