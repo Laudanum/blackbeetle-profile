@@ -112,13 +112,31 @@ function blackbeetle_preprocess_page(&$vars) {
   $vars['site_name'] = l($vars['site_name'], '<front>');
   $vars['site_slogan'] = $vars['site_slogan'];
   
+  //  get the primary menu top level paths
+  $menu_name = "main-menu";
+  $links = menu_load_links($menu_name);
+  
+//  get the page number based on the menu position
+    if ( count($links) ) {
+      $destination = drupal_get_destination();
+      $i = 0;
+      foreach ( $links as $link_item ) {
+        $router_path = $link_item['router_path'];
+        if ( $link_item['depth'] == 1 && $link_item['link_path'] != "<front>" && $router_path[strlen($router_path)-1] == '%' ) {
+          $i++;
+          if ( $link_item['link_path'] == $destination['destination'] ) {
+            $vars['page_number'] = $i;
+            if ( $i < 10 )
+              $vars['page_number'] = "0" . $i;
+            break;
+          }
+        }
+      }
+    }
+
   
 //  front page - image based main menu
   if (  $vars['is_front'] ) {
-  //  get the primary menu top level paths
-    $menu_name = "main-menu";
-    $links = menu_load_links($menu_name);
-
     if ( count($links) ) {
       $sections = array();
       $i = 0;
@@ -170,9 +188,10 @@ function blackbeetle_preprocess_page(&$vars) {
     arg(1) == 'term' 
     && is_numeric(arg(2))
   ) {
+//  should be reworked to use main-menu ( see is_front page)
     $term = taxonomy_term_load(arg(2));
     $vars['page_title'] = $term->name;
-    $vars['page_number'] = "0" . $term->tid;
+//    $vars['page_number'] = "0" . ($term->tid + 1);
     
   }
 
