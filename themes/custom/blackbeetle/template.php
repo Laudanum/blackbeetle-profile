@@ -374,7 +374,10 @@ function blackbeetle_preprocess_views_view_field(&$vars) {
 function blackbeetle_preprocess_views_view_fields(&$vars) {
   if ( $vars['view']->name == "taxonomy_term_nodequeue" ) {
     $row_index = $vars['view']->row_index;
-    $file_uri = ($vars['view']->result[$row_index]->field_field_media[0]['rendered']['file']['#path']);
+//  use field_media_file if available
+//  kpr($vars['view']->result[$row_index]);
+    $file_uri = $vars['view']->result[$row_index]->field_field_media_file[0] ? $vars['view']->result[$row_index]->field_field_media_file[0]['rendered']['file']['#path'] : $vars['view']->result[$row_index]->field_field_media[0]['rendered']['file']['#path'];
+//    $file_uri = $vars['view']->result[$row_index]->field_field_media[0]['rendered']['file']['#path'];
 //      $image_style = "thumbnail";
     $image_style = "vertical_panel";
     $vars['field_media_url'] = image_style_url($image_style, $file_uri);
