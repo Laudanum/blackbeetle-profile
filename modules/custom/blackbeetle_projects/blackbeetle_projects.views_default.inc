@@ -214,6 +214,39 @@ function blackbeetle_projects_views_default_views() {
   $handler->display->display_options['fields']['view_node']['hide_empty'] = 0;
   $handler->display->display_options['fields']['view_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['view_node']['hide_alter_empty'] = 1;
+  /* Field: Field: Signature image */
+  $handler->display->display_options['fields']['field_media_file']['id'] = 'field_media_file';
+  $handler->display->display_options['fields']['field_media_file']['table'] = 'field_data_field_media_file';
+  $handler->display->display_options['fields']['field_media_file']['field'] = 'field_media_file';
+  $handler->display->display_options['fields']['field_media_file']['label'] = '';
+  $handler->display->display_options['fields']['field_media_file']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_media_file']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_media_file']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_media_file']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_media_file']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_media_file']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_media_file']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_media_file']['settings'] = array(
+    'file_view_mode' => 'media_preview',
+  );
+  $handler->display->display_options['fields']['field_media_file']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_media_file']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_media_file']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_media_file']['multi_type'] = 'ul';
+  $handler->display->display_options['fields']['field_media_file']['field_api_classes'] = 0;
   /* Sort criterion: Nodequeue: Position */
   $handler->display->display_options['sorts']['position']['id'] = 'position';
   $handler->display->display_options['sorts']['position']['table'] = 'nodequeue_nodes';

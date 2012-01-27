@@ -59,3 +59,20 @@ function blackbeetle_projects_image_default_styles() {
 
   return $styles;
 }
+
+/**
+ * Implements hook_node_info().
+ */
+function blackbeetle_projects_node_info() {
+  $items = array(
+    'project' => array(
+      'name' => t('Project'),
+      'base' => 'node_content',
+      'description' => t('This is the default type for all records about works of art or text.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  return $items;
+}
