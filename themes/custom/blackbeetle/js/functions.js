@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
     
     //Init for Selected Project & Arts's slidshow    
     jQuery('.gallery ul').jcarousel({
-         scroll: 4,
+         scroll: 3,
      });
      
      
