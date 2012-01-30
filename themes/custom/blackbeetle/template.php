@@ -269,8 +269,11 @@ function blackbeetle_preprocess_page(&$vars) {
         $subqueues = nodequeue_get_subqueues_by_node(array($queues), $vars['node']);
 //  get the nodes in the queue
         $subqueue = array_shift($subqueues);
-        $subqueue_nodes = nodequeue_load_nodes($subqueue->sqid);
-
+        $published = TRUE;
+        $count = 1000;
+        $start = 0;
+        $reverse = FALSE;
+        $subqueue_nodes = nodequeue_load_nodes($subqueue->sqid, $reverse, $start, $count, $published);
         foreach ( $subqueue_nodes as $position => $node) {
           if ( $node->nid == $vars['node']->nid ) {
             $my_position = $position;
