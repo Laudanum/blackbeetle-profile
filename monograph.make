@@ -84,6 +84,7 @@ projects[media_vimeo][version] = "1.x-dev"
 ;; add in global configuration of vimeo player
 ; possibly the error in drush make - confirmed - but its because these projects aren't downloaded
 ; projects[media_vimeo][patch][1229304] = http://drupal.org/files/issues/video_display_settings.patch
+projects[media_vimeo[patch][1381256] = http://drupal.org/files/add-portrait-title-byline-options-1381256-1.patch
 projects[insert][subdir] = "contrib"
 
 ; themes

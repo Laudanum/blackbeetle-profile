@@ -52,11 +52,14 @@
       <? endif; ?>
       
       <?php 
-        $image_element = render($item);
-        $image_path = $item['file']['#path'];
-        $image_path = image_style_url("large", $image_path);
-
-        print l($image_element, $image_path, array('html'=>TRUE, 'attributes'=>array('rel'=>'gallery', 'class'=>array('colorbox-load'))));
+        $media_item = render($item);
+        if ( $item["#bundle"] == "image" ) {
+          $image_path = $item['file']['#path'];
+          $image_path = image_style_url("large", $image_path);
+          print l($media_item, $image_path, array('html'=>TRUE, 'attributes'=>array('rel'=>'gallery', 'class'=>array('colorbox-load'))));
+        } else {
+          print $media_item;
+        }
       ?>
       </li>
     <?php endforeach; ?>

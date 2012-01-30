@@ -16,8 +16,12 @@
             </div>
             <div id="body">
                 <div class="arrows">
+                  <?php if (isset($page_previous)): ?>
                     <div class="arrow arrow-left"><?=$page_previous?></div>
+                  <?php endif; ?>
+                  <?php if (isset($page_next)): ?>
                     <div class="arrow arrow-right"><?=$page_next?></div>
+                  <?php endif; ?>
                 </div>  
 
                 <?php if ($tabs = render($tabs)): ?>
