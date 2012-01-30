@@ -214,7 +214,7 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 }
 
 .col.full_image {
-    width: 630px; 
+    width: 640px; 
     height: 500px;
     padding-right: 20px;
 }
@@ -269,7 +269,7 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 #site-name {
 	position: absolute;
 	top: 0;
-	right: 0;
+	right: -10px;
 }
 #site-name h1 {}
 #site-name h1 a {
@@ -285,7 +285,7 @@ body.page-taxonomy-term #body .col:hover .meta h4.title a {
 .art-text {
 	position: relative;
 	float: right;
-	width: 310px;
+	width: 300px;
 	height: 410px;
   overflow-y: auto;
   text-align : justify;
@@ -346,17 +346,20 @@ ul.gallery-navigation li.active a,
 div.gallery-navigation {
   position : absolute;
   width: 310px;
-  margin-left: 650px;
-  right : 0;
-  top: 430px;
+  margin-left: 660px;
+  top: 435px;
 }
 
 body.logged-in div.gallery-navigation {
   top: 460px;
 }
 .gallery-container {
-  width : 630px;
-  height: 430px;
+  width : 640px;
+  height: 435px;
+}
+#body .gallery-container a {
+border-bottom: none;
+padding-bottom: 0;
 }
 .arrows {}
 .arrows .arrow {
@@ -411,12 +414,12 @@ body.logged-in div.gallery-navigation {
 /*Single Gallery for Art&Project */
 .single_gallery{
     position: relative;
-    height: 430px;
+    height: 435px;
 }
 .single_gallery ul,
 .single_gallery ul li {
-    width : 630px;
-    height : 430px;
+    width : 640px;
+    height : 435px;
     position : absolute;
     list-style : none;
     padding : 0;
@@ -444,9 +447,9 @@ body.logged-in div.gallery-navigation {
   display : block;
 }
 .single_gallery ul li img {
-  height : 100%;
     /*max-width : 100%;
-    max-height : 100%;*/
+    */
+    max-height : 100%;
 }
 
 /*Selected/Arts page*/
