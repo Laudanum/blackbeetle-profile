@@ -23,23 +23,23 @@ regions[front_section] = Front Sections
 
 ; Stylesheets =================================================================
 
-stylesheets[all][] = reset.css
-stylesheets[all][] = base.css
+; stylesheets[all][] = libs/css/reset.css
+stylesheets[all][] = libs/css/base.css
 
 ; Custom CSS =========================================
-stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/text.css
-stylesheets[all][] = css/960_12_10_10.css
-stylesheets[all][] = css/main.css
+stylesheets[all][] = libs/css/reset-960.css
+stylesheets[all][] = libs/css/text.css
+stylesheets[all][] = libs/css/960_12_10_10.css
+stylesheets[all][] = libs/css/main.css
 
-stylesheets[all][] = css/tabs.css
+stylesheets[all][] = libs/css/tabs.css
 
-stylesheets[all][] = css/jcarousel.css
+stylesheets[all][] = libs/css/jcarousel.css
 
-stylesheets[screen][] = drupal.css
+stylesheets[screen][] = libs/css/drupal.css
 
 stylesheets-conditional[lt IE 9][all][] = libs/css/ie7.css
 
-scripts[] = js/functions.js
-scripts[] = js/jquery.jcarousel.min.js
-scripts[] = js/jquery.timers-1.2.js
+scripts[] = libs/js/jquery.jcarousel.min.js
+scripts[] = libs/js/jquery.timers-1.2.js
+scripts[] = libs/js/functions.js

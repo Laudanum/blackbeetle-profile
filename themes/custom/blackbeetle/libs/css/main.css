@@ -555,7 +555,7 @@ a.external:after {
 
 a.social {
   text-indent : -9999px;
-  background-image : url(../libs/images/social-icons.png);
+  background-image : url(../images/social-icons.png);
   background-repeat : no-repeat;
   display : block;
   float : left;
