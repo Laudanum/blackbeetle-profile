@@ -39,11 +39,13 @@
 ?>
 
 <!-- template views view fields taxonomy term nodequeue -->
-    <a class="art" href="<?=$node_url?>">
       <div class="img">
-        <img alt="" src="<?=$field_media_url?>" />
+        <a class="art" href="<?=$node_url?>">
+          <img alt="" src="<?=$field_media_url?>" />
+        </a>
       </div>
       <div class="meta">
+        <a class="art" href="<?=$node_url?>">
         <h4 class="title"><?=$fields['title']->content ?></h4>
 
         <?php if ( ! empty($fields['field_byline']->content) ):?>
@@ -57,6 +59,6 @@
         <?php if ( ! empty($fields['field_country']->content) ):?>
         <div class="country"><?=$fields['field_country']->content ?></div>
         <?php endif; ?>
+        </a>
       </div>
-    </a>
 <!-- end views view fields taxonomy term nodequeue -->
