@@ -85,8 +85,11 @@ dependencies[] = devel_themer
 dependencies[] = coder
 dependencies[] = coder_review
 dependencies[] = module_filter
+<<<<<<< HEAD
 
 ; Blackbeetle requirements
 dependencies[] = nice_menus
 dependencies[] = views_php
 dependencies[] = blackbeetle
+=======
+>>>>>>> upstream/master

@@ -87,6 +87,16 @@ projects[media_vimeo][version] = "1.x-dev"
 projects[media_vimeo[patch][1381256] = http://drupal.org/files/add-portrait-title-byline-options-1381256-1.patch
 projects[insert][subdir] = "contrib"
 
+; multifile upload
+projects[plupload][subdir] = "contrib"
+projects[plupload][version] = "1.x-dev"
+; prevent conflict with field entity module
+projects[plupload][patch] = "http://drupal.org/files/issues/1240654-plupload-namespace-file-uri-to-object.patch"
+libraries[plupload][download][type] = "git"
+libraries[plupload][download][url] = "git://github.com/moxiecode/plupload.git"
+libraries[plupload][destination] = "libraries"   
+
+
 ; themes
 projects[tao][type] = "theme"
 projects[tao][subdir] = "contrib"
