@@ -13,7 +13,7 @@
                   <a class="link" href="<?=url($column['path'])?>">
                     <div class="img">
                       <? foreach ( $column['field_media_file'] as $file ): ?>
-                      <img src="<?=$file['url']?>" alt="<?=$file['title']?>" />                        
+                      <img src="<?=$file['url']?>" alt="<?php if ($file['title']) echo $file['title']; ?>" />                        
                       <? endforeach; ?>
 
                       <div class="text">

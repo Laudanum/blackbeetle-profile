@@ -3,7 +3,7 @@
             <div id="header">
                 <div class="title">
                     <h1><?php print $site_name; ?></h1>
-                    <span class="num"><?=$page_number?></span>
+                    <span class="num"><? if ( isset($page_number) ) echo $page_number;  ?></span>
                     <h2><?php print $title; ?></h2>
                 </div>
                 <div class="nav">
