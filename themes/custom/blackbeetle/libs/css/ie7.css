@@ -7,3 +7,11 @@
 .single_gallery ul li {
   left : 0;
 }
+
+#body, #header, #body div {
+}
+
+#body {
+  position : relative;
+  width : 960px;
+}
