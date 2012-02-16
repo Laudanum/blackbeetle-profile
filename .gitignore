@@ -1,3 +1,8 @@
+libraries/
+modules/contrib/
+modules/developer/
+themes/contrib/
+
 .DS_Store
 libraries/
 modules/contrib/
